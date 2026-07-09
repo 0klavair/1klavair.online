@@ -197,7 +197,11 @@ function renderGallery(mainEl, thumbsEl, images) {
   paint();
 }
 
-// ---- Modales communes (panier, compte, concours, validation, reveal) ----
+// ---- Modales communes (panier, compte, reveal) ----
+// Le reveal ne s'affiche qu'une fois par navigateur (localStorage). Taper "1klavair"
+// au clavier n'importe où sur le site réinitialise ça (pas de champ dédié, exprès).
+let revealed = localStorage.getItem('revealed') === 'true';
+
 const $openCart = document.getElementById('openCart');
 $openCart && $openCart.addEventListener('click', () => show('cartOverlay'));
 const $closeCart = document.getElementById('closeCart');
@@ -207,33 +211,32 @@ const $goCheckout = document.getElementById('goCheckout');
 $goCheckout && $goCheckout.addEventListener('click', () => {
   if (cart.length === 0) return;
   hide('cartOverlay');
+  if (revealed) return;
   show('accountModal');
 });
 
-const $accountNext = document.getElementById('accountNext');
-$accountNext && $accountNext.addEventListener('click', () => { hide('accountModal'); show('contestModal'); });
-const $accountSkip = document.getElementById('accountSkip');
-$accountSkip && $accountSkip.addEventListener('click', () => { hide('accountModal'); show('contestModal'); });
-
-function goToFinal() {
-  const summary = cart.map(item => {
-    const entity = cartEntity(item);
-    return entity ? `${cartItemName(entity, item)} x${item.qty}` : null;
-  }).filter(Boolean).join(', ');
-  document.getElementById('finalSummary').textContent = summary || 'Panier vide';
-  show('finalModal');
+function triggerReveal() {
+  hide('accountModal');
+  revealed = true;
+  localStorage.setItem('revealed', 'true');
+  show('revealScreen');
 }
 
-const $finalConfirm = document.getElementById('finalConfirm');
-$finalConfirm && $finalConfirm.addEventListener('click', () => { hide('finalModal'); show('revealScreen'); });
+const $accountNext = document.getElementById('accountNext');
+$accountNext && $accountNext.addEventListener('click', triggerReveal);
+const $accountSkip = document.getElementById('accountSkip');
+$accountSkip && $accountSkip.addEventListener('click', triggerReveal);
 
-const $restartBtn = document.getElementById('restartBtn');
-$restartBtn && $restartBtn.addEventListener('click', () => {
-  cart = [];
-  discountPercent = 0;
-  updateCartUI();
-  hide('revealScreen');
-  document.querySelectorAll('input').forEach(i => i.value = '');
+const CHEAT_CODE = '1klavair';
+let keyBuffer = '';
+document.addEventListener('keydown', (e) => {
+  if (e.key.length !== 1) return;
+  keyBuffer = (keyBuffer + e.key.toLowerCase()).slice(-CHEAT_CODE.length);
+  if (keyBuffer === CHEAT_CODE) {
+    revealed = false;
+    localStorage.removeItem('revealed');
+    keyBuffer = '';
+  }
 });
 
 const PROMO_CODES = { 'TIKTOK10': 10, 'FREEDOM20': 20, 'SWAT50': 50, 'ARMEGRATUITE': 100 };
@@ -268,60 +271,6 @@ document.querySelectorAll('.brand-btn').forEach(btn => {
     window.location.href = 'resultats.html?q=' + encodeURIComponent(btn.dataset.brand);
   });
 });
-
-// ---- Jeu concours : roue de la fortune (100% fictive, aucun envoi, aucun vrai lot) ----
-const WHEEL_PRIZES = ['Munitions 9mm', 'Rien du tout', 'Gilet pare-balles', '1 arme achetée = 1 offerte', 'Pistolet Glock 17', 'Code promo -10%', 'Silencieux', 'Rejoue plus tard'];
-
-function initWheel() {
-  const modalRoot = document.querySelector('#contestModal .modal');
-  if (!modalRoot) return;
-
-  modalRoot.innerHTML = `
-    <h2>${uiGiftIcon()} Jeu concours — Tourne la roue</h2>
-    <p class="modal-sub">Tirage 100% fictif : rien n'est envoyé, aucun vrai lot.</p>
-    <div class="wheel-outer">
-      <div class="wheel-pointer"></div>
-      <div class="wheel" id="wheelEl"></div>
-      <div class="wheel-labels" id="wheelLabels"></div>
-    </div>
-    <button class="modal-btn" id="spinBtn">Tourner la roue</button>
-    <p class="wheel-result" id="wheelResult"></p>
-    <button class="modal-btn" id="contestNext" style="display:none">Continuer</button>
-    <button class="modal-skip" id="contestSkip">Non merci</button>
-  `;
-
-  const wheelEl = document.getElementById('wheelEl');
-  const segAngle = 360 / WHEEL_PRIZES.length;
-  const colors = ['#b3161a', '#1c1c1e'];
-  const gradientParts = WHEEL_PRIZES.map((_, i) => `${colors[i % 2]} ${i * segAngle}deg ${(i + 1) * segAngle}deg`).join(', ');
-  wheelEl.style.background = `conic-gradient(${gradientParts})`;
-
-  document.getElementById('wheelLabels').innerHTML = WHEEL_PRIZES.map((prize, i) => {
-    const angle = i * segAngle + segAngle / 2;
-    return `<div class="wheel-label" style="transform: translate(-50%,-50%) rotate(${angle}deg) translate(90px) rotate(${-angle}deg)">${prize}</div>`;
-  }).join('');
-
-  let spinning = false;
-  document.getElementById('spinBtn').addEventListener('click', () => {
-    if (spinning) return;
-    spinning = true;
-    const prizeIndex = Math.floor(Math.random() * WHEEL_PRIZES.length);
-    const targetCenter = prizeIndex * segAngle + segAngle / 2;
-    const finalRotation = 5 * 360 + (360 - targetCenter);
-    wheelEl.style.transform = `rotate(${finalRotation}deg)`;
-    document.getElementById('spinBtn').disabled = true;
-    setTimeout(() => {
-      document.getElementById('wheelResult').innerHTML = `${uiStarIcon()} Résultat : ${WHEEL_PRIZES[prizeIndex]} (fictif, rien n'est envoyé)`;
-      document.getElementById('spinBtn').style.display = 'none';
-      document.getElementById('contestNext').style.display = '';
-      spinning = false;
-    }, 4200);
-  });
-
-  document.getElementById('contestNext').addEventListener('click', () => { hide('contestModal'); goToFinal(); });
-  document.getElementById('contestSkip').addEventListener('click', () => { hide('contestModal'); goToFinal(); });
-}
-initWheel();
 
 // ---- Remplacement des émojis d'interface par des icônes SVG maison (style gribouillage) ----
 function uiPhoneIcon() {
@@ -363,19 +312,6 @@ function uiSocialIcon() {
     <path d="M6 10 L34 10 L34 26 L18 26 L10 34 L12 26 L6 26 Z" fill="#f0f0f2"/>
   </g></svg></span>`;
 }
-function uiGiftIcon() {
-  return `<span class="ui-icon"><svg viewBox="0 0 40 40"><g stroke="#111" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
-    <rect x="8" y="16" width="24" height="18" fill="#b3161a"/>
-    <rect x="6" y="10" width="28" height="8" fill="#e8a13c"/>
-    <path d="M20 10 L20 34"/>
-  </g></svg></span>`;
-}
-function uiStarIcon() {
-  return `<span class="ui-icon"><svg viewBox="0 0 40 40"><g stroke="#111" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M20 4 L23 16 L34 12 L25 20 L34 28 L23 24 L20 36 L17 24 L6 28 L15 20 L6 12 L17 16 Z" fill="#e8a13c"/>
-  </g></svg></span>`;
-}
-
 function swapEmoji(el, emojiChar, iconHtml) {
   if (el && el.innerHTML.includes(emojiChar)) {
     el.innerHTML = el.innerHTML.replace(emojiChar, iconHtml);
