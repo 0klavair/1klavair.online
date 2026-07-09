@@ -270,7 +270,7 @@ document.querySelectorAll('.brand-btn').forEach(btn => {
 });
 
 // ---- Jeu concours : roue de la fortune (100% fictive, aucun envoi, aucun vrai lot) ----
-const WHEEL_PRIZES = ['Munitions 9mm', 'Rien du tout', 'Gilet pare-balles', 'Munitions 5.56', 'Pistolet Glock 17', 'Code promo -10%', 'Silencieux', 'Rejoue plus tard'];
+const WHEEL_PRIZES = ['Munitions 9mm', 'Rien du tout', 'Gilet pare-balles', '1 arme achetée = 1 offerte', 'Pistolet Glock 17', 'Code promo -10%', 'Silencieux', 'Rejoue plus tard'];
 
 function initWheel() {
   const modalRoot = document.querySelector('#contestModal .modal');

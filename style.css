@@ -508,6 +508,9 @@ body {
 }
 .wheel-result { font-weight: 700; margin: 10px 0; min-height: 20px; color: #178a2f; }
 
+.petition-btn { background: #1a5276; margin-bottom: 10px; }
+.petition-btn:hover { background: #21618c; }
+
 .reveal-overlay { background: #000; }
 .reveal {
   max-width: 640px;
