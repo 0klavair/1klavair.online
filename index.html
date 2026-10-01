@@ -74,6 +74,12 @@
   .line button { border:0; background:none; color:var(--red); cursor:pointer; font-size:.8rem; }
   #foot { padding:16px 20px; border-top:1px solid var(--line); }
   .tot { display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-bottom:12px; }
+  .promo-row { display:flex; gap:8px; margin-bottom:10px; }
+  .promo-row input { flex:1; min-width:0; padding:10px 12px; border:1.5px solid var(--line); border-radius:10px; font:600 .9rem system-ui,sans-serif; }
+  .promo-row button { padding:10px 14px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:700 .85rem system-ui,sans-serif; cursor:pointer; }
+  .promo-msg { font:600 .8rem system-ui,sans-serif; min-height:1.2em; margin-bottom:8px; }
+  .promo-msg.ok { color:#1d8a3a; } .promo-msg.ko { color:var(--red); }
+  .sub { display:flex; justify-content:space-between; font:.9rem system-ui,sans-serif; color:var(--mut); margin-bottom:6px; }
   .pay { width:100%; padding:14px; border:0; border-radius:10px; background:var(--blue); color:#fff; font:700 1rem system-ui,sans-serif; cursor:pointer; }
   .empty { text-align:center; color:var(--mut); padding:40px 0; }
   #toast { position:fixed; left:50%; bottom:24px; transform:translate(-50%,120px); background:var(--ink); color:#fff; padding:12px 20px; border-radius:99px; font:600 .9rem system-ui,sans-serif; transition:transform .25s; z-index:30; }
@@ -140,6 +146,9 @@
   <h3>Mon panier <button id="closeCart" aria-label="Fermer">×</button></h3>
   <div id="items"></div>
   <div id="foot">
+    <div class="promo-row"><input id="promoIn" placeholder="Code promo" autocomplete="off" autocapitalize="off" spellcheck="false"><button id="promoBtn">Appliquer</button></div>
+    <div class="promo-msg" id="promoMsg"></div>
+    <div class="sub" id="discRow" style="display:none"><span>Réduction <b id="discCode"></b></span><span id="discAmt"></span></div>
     <div class="tot"><span>Total</span><span id="total">0,00 €</span></div>
     <button class="pay" id="pay">Passer la commande</button>
   </div>
@@ -154,10 +163,10 @@
 </div>
 
 <script>
-  var PRICE = 95.00, SIZES = ["XS","S","M","L","XL","XXL"], size = "XXL", qty = 1, cart = [];
+  var PROMO = "ladaronajordan", PROMO_RATE = 0.20, promoOn = false, PRICE = 95.00, SIZES = ["XS","S","M","L","XL","XXL"], size = "XXL", qty = 1, cart = [];
   function $(id) { return document.getElementById(id); }
-  function load() { try { cart = JSON.parse(localStorage.getItem("cart") || "[]"); } catch (e) { cart = []; } }
-  function save() { try { localStorage.setItem("cart", JSON.stringify(cart)); } catch (e) {} }
+  function load() { try { cart = JSON.parse(localStorage.getItem("cart") || "[]"); promoOn = localStorage.getItem("promo") === "1"; } catch (e) { cart = []; } }
+  function save() { try { localStorage.setItem("cart", JSON.stringify(cart)); localStorage.setItem("promo", promoOn ? "1" : "0"); } catch (e) {} }
   function eur(n) { return n.toFixed(2).replace(".", ",") + " €"; }
 
   var SIZE_MSGS = {
@@ -241,7 +250,11 @@
   }
   function render() {
     var n = 0, t = 0; cart.forEach(function (l) { n += l.qty; t += l.qty * PRICE; });
-    $("count").textContent = n; $("total").textContent = eur(t);
+    var disc = promoOn ? t * PROMO_RATE : 0;
+    $("count").textContent = n; $("total").textContent = eur(t - disc);
+    $("discRow").style.display = promoOn && n ? "flex" : "none";
+    $("discCode").textContent = "(" + PROMO + " −20 %)"; $("discAmt").textContent = "−" + eur(disc);
+    if (promoOn) { $("promoMsg").className = "promo-msg ok"; $("promoMsg").textContent = "✅ Code appliqué : −20 %"; $("promoIn").value = PROMO; }
     $("pay").disabled = !n; $("pay").style.opacity = n ? 1 : .4;
     $("items").innerHTML = cart.length ? "" : '<div class="empty">Panier vide.<br>Il manque un t-shirt blanc.</div>';
     cart.forEach(function (l, i) {
@@ -259,6 +272,13 @@
     try { window.open($("subLink").href, "_blank", "noopener"); } catch (e) {}
   };
   $("endBtn").onclick = function () { cart = []; save(); render(); $("end").className = ""; };
+
+  $("promoBtn").onclick = function () {
+    var v = $("promoIn").value.trim().toLowerCase(), m = $("promoMsg");
+    if (v === PROMO) { promoOn = true; save(); render(); toast("🎉 Code promo −20 % appliqué"); }
+    else { promoOn = false; save(); render(); m.className = "promo-msg ko"; m.textContent = v ? "Code invalide." : "Entre un code promo."; }
+  };
+  $("promoIn").addEventListener("keydown", function (e) { if (e.key === "Enter") $("promoBtn").click(); });
 
   load(); render();
 </script>
