@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArmurerieShop — Vente en ligne</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="crayon" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="7"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <span>📞 08 92 XX XX XX</span>
+    <span>Livraison sous 24-48h partout en France</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html">ARMURERIE<span>SHOP</span></a>
+    <form class="search-bar" id="searchForm">
+      <input type="text" id="searchInput" placeholder="Rechercher un produit...">
+      <button type="submit" id="searchBtn">🔍</button>
+    </form>
+    <div class="header-actions">
+      <button class="icon-btn">👤 Compte</button>
+      <button class="icon-btn cart-btn" id="openCart">🛒 Panier <span id="cartCount">0</span></button>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="index.html" class="active-nav">ACCUEIL</a>
+    <a href="armes-de-poing.html">ARMES DE POING</a>
+    <a href="fusils.html">FUSILS</a>
+    <a href="munitions.html">MUNITIONS</a>
+    <a href="equipements.html">EQUIPEMENTS</a>
+    <a href="materiel-lourd.html">MATERIEL LOURD</a>
+    <a href="gardes-du-corps.html">GARDES DU CORPS</a>
+    <a href="hacking-cyberware.html">HACKING &amp; CYBERWARE</a>
+    <a href="boissons-complements.html">BOISSONS &amp; COMPLEMENTS</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-banner">
+    <h1>Ventes flash de la semaine</h1>
+    <p>Vérification d'identité minimale · Paiement en 3x sans frais · Satisfait ou remboursé</p>
+  </div>
+</section>
+
+<main class="catalog">
+  <h2 class="section-title">Nos catégories</h2>
+  <div class="tile-grid" id="tileGrid"></div>
+
+  <div id="featuredSections"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Société</h4>
+      <a href="https://www.tiktok.com/@1klavair" target="_blank" rel="noopener">Qui sommes-nous</a>
+      <a href="https://www.tiktok.com/@1klavair" target="_blank" rel="noopener">Contact</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+    </div>
+    <div class="footer-col">
+      <h4>Produits</h4>
+      <a href="armes-de-poing.html">Armes de poing</a>
+      <a href="fusils.html">Fusils</a>
+      <a href="munitions.html">Munitions</a>
+      <a href="equipements.html">Équipements</a>
+      <a href="materiel-lourd.html">Matériel lourd</a>
+    </div>
+    <div class="footer-col">
+      <h4>Compte</h4>
+      <a href="#">Connexion</a>
+      <a href="#">Mes commandes</a>
+    </div>
+    <div class="footer-col">
+      <h4>Informations</h4>
+      <a href="livraison.html">Livraison</a>
+      <a href="#">Garantie</a>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+    </div>
+    <div class="footer-col">
+      <h4>Nous contacter</h4>
+      <p class="footer-text">1 rue du Point de Non-Retour<br>59999 Nullepart</p>
+      <p class="footer-text">08 92 XX XX XX</p>
+      <p class="footer-text">tas-vraiment-cru@armurerieshop.fr</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Panier -->
+<div class="overlay" id="cartOverlay">
+  <div class="drawer">
+    <div class="drawer-header">
+      <h2>Votre panier</h2>
+      <button id="closeCart">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="promo-row">
+      <input type="text" id="promoInput" placeholder="Code promo">
+      <button id="promoApply">Appliquer</button>
+    </div>
+    <p class="promo-msg" id="promoMsg"></p>
+    <div class="cart-total">Total : <span id="cartTotal">0 €</span></div>
+    <button class="checkout-btn" id="goCheckout">Passer commande</button>
+  </div>
+</div>
+
+<!-- Etape 1 : compte -->
+<div class="overlay" id="accountModal">
+  <div class="modal">
+    <h2>Créer votre compte livraison</h2>
+    <p class="modal-sub">Requis pour finaliser votre commande.</p>
+    <input type="text" id="pseudoInput" placeholder="Pseudo">
+    <input type="email" id="emailInput" placeholder="Email">
+    <button class="modal-btn" id="accountNext">Continuer</button>
+    <button class="modal-skip" id="accountSkip">Passer cette étape</button>
+  </div>
+</div>
+
+<!-- Etape 2 : jeu concours -->
+<div class="overlay" id="contestModal">
+  <div class="modal">
+    <h2>🎁 Jeu concours — Gagnez vos munitions à vie</h2>
+    <p class="modal-sub">Renseigne tes réseaux pour participer au tirage au sort.</p>
+    <input type="text" id="instaInput" placeholder="Pseudo Instagram">
+    <input type="text" id="tiktokInput" placeholder="Pseudo TikTok">
+    <input type="text" id="twitchInput" placeholder="Pseudo Twitch">
+    <button class="modal-btn" id="contestNext">Valider ma participation</button>
+    <button class="modal-skip" id="contestSkip">Non merci</button>
+  </div>
+</div>
+
+<!-- Etape finale : validation commande -->
+<div class="overlay" id="finalModal">
+  <div class="modal">
+    <h2>Finaliser la commande</h2>
+    <p class="modal-sub">Récapitulatif : <span id="finalSummary"></span></p>
+    <button class="modal-btn confirm" id="finalConfirm">✅ Valider ma commande</button>
+  </div>
+</div>
+
+<!-- Reveal -->
+<div class="overlay reveal-overlay" id="revealScreen">
+  <div class="reveal">
+    <h1>Stop.</h1>
+    <p class="reveal-text">
+      En quelques clics, tu pensais pouvoir acheter une arme.<br><br>
+      Aucune vérification. Aucun contrôle. Aucune question.<br><br>
+      Et c'est précisément ce qui devrait t'inquiéter.<br><br>
+      Le <strong>7 juillet 2026</strong>, l'Assemblée nationale a adopté en première lecture
+      un texte instaurant une présomption de légalité de l'usage de l'arme par les policiers
+      et les gendarmes. Le texte n'est <strong>pas encore une loi</strong> : il doit encore
+      être examiné par le Sénat avant de poursuivre son parcours législatif. Pourtant, il
+      suscite déjà une mobilisation nationale et un débat majeur sur l'équilibre entre
+      sécurité, justice et État de droit.<br><br>
+      Ce site est entièrement fictif.<br><br>
+      Aucune arme n'est vendue. Aucun tirage au sort n'existe. Aucune donnée n'est
+      enregistrée ni transmise.<br><br>
+      Mais si un faux site comme celui-ci paraît crédible, imagine ce que pourraient faire
+      de vrais sites créés pour exploiter la peur, encourager l'armement ou promettre une
+      prétendue « autodéfense ».<br><br>
+      C'est ainsi que naissent les dérives.<br><br>
+      Ne leur donne jamais de crédit.<br><br>
+      Le débat n'est pas terminé. Le Sénat ne s'est pas encore prononcé.<br><br>
+      Si tu veux agir, fais-le dans le cadre démocratique : informe-toi, échange avec les
+      autres, participe au débat public, soutiens les initiatives qui correspondent à tes
+      convictions et interpelle tes représentants.<br><br>
+      Parce qu'une démocratie ne se défend pas avec de fausses promesses ou des armes.
+      Elle se défend par l'engagement de ses citoyens.
+    </p>
+    <a href="https://petitions.assemblee-nationale.fr/initiatives/i-6334" target="_blank" rel="noopener" class="modal-btn petition-btn">Signer la pétition (200 000+ signatures)</a>
+  </div>
+</div>
+
+<script src="products.js"></script>
+<script src="common.js"></script>
+<script>
+  const CATEGORY_ORDER = ['gardes', 'pistolet', 'fusil', 'munitions', 'equipement', 'lourd', 'hacking', 'boissons'];
+  const CATEGORY_TILE_ICON = {
+    gardes: silhouetteIcon(),
+    pistolet: glock17Icon('#5a5a5a', '#2b2b2b'),
+    fusil: ak47Icon('#3a3a3a', '#7a5230'),
+    munitions: ammoIcon('#c9a227', '#b5651d', 3),
+    equipement: vestIcon('#3a3a3a', '#555'),
+    lourd: tankIcon('#5c6b47'),
+    hacking: aiChipIcon('#3a3a3a'),
+    boissons: bottleIcon('#b3161a', '#e8a13c')
+  };
+
+  document.getElementById('tileGrid').innerHTML = CATEGORY_ORDER.map(cat => {
+    const page = CATEGORY_PAGES[cat];
+    const isGardes = cat === 'gardes';
+    const label = isGardes ? 'Gardes du corps' : CATEGORY_LABELS[cat];
+    const countText = isGardes ? 'Location à la journée' : `${PRODUCTS.filter(p => p.cat === cat).length} produits`;
+    return `<a class="category-tile" href="${page}">
+      <span class="tile-icon-svg">${CATEGORY_TILE_ICON[cat]}</span>
+      <span class="tile-name">${label}</span>
+      <span class="tile-count">${countText}</span>
+    </a>`;
+  }).join('');
+
+  let featuredHtml = '';
+  CATEGORY_ORDER.forEach(cat => {
+    const page = CATEGORY_PAGES[cat];
+    if (cat === 'gardes') {
+      const items = BODYGUARDS.slice(0, 3);
+      featuredHtml += `<h2 class="section-title">Gardes du corps <a class="see-all" href="${page}">Voir tout →</a></h2>
+        <div class="grid" id="feat-gardes">${items.map(bgCardHtml).join('')}</div>`;
+    } else {
+      const items = PRODUCTS.filter(p => p.cat === cat).slice(0, 3);
+      featuredHtml += `<h2 class="section-title">${CATEGORY_LABELS[cat]} <a class="see-all" href="${page}">Voir tout →</a></h2>
+        <div class="grid" id="feat-${cat}">${items.map(productCardHtml).join('')}</div>`;
+    }
+  });
+  document.getElementById('featuredSections').innerHTML = featuredHtml;
+
+  CATEGORY_ORDER.forEach(cat => {
+    if (cat === 'gardes') wireBodyguardGrid(document.getElementById('feat-gardes'));
+    else wireProductGrid(document.getElementById(`feat-${cat}`));
+  });
+</script>
+</body>
+</html>

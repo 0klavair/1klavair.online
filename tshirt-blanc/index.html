@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le T-Shirt Blanc — Importé en France</title>
+<style>
+  :root { --bg:#fafaf7; --ink:#1a1a1a; --mut:#777; --line:#e3e1da; --blue:#1f3fbf; --red:#d22b2b; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:Georgia,'Times New Roman',serif; }
+  .flag { height:6px; background:linear-gradient(90deg,var(--blue) 33%,#fff 33% 66%,var(--red) 66%); border-bottom:1px solid var(--line); }
+  .promo { background:var(--ink); color:#fff; text-align:center; font:600 .82rem system-ui,sans-serif; padding:8px 12px; letter-spacing:.04em; }
+  header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 20px; border-bottom:1px solid var(--line); background:#fff; position:sticky; top:0; z-index:5; }
+  .logo { font-size:1.4rem; font-weight:700; letter-spacing:.02em; text-decoration:none; color:inherit; }
+  .logo small { display:block; font:600 .6rem system-ui,sans-serif; letter-spacing:.2em; color:var(--blue); }
+  nav { display:flex; gap:18px; font:500 .9rem system-ui,sans-serif; }
+  nav span { color:var(--mut); cursor:not-allowed; } nav b { border-bottom:2px solid var(--ink); }
+  .cartbtn { font:600 .9rem system-ui,sans-serif; padding:9px 16px; border:1.5px solid var(--ink); background:#fff; border-radius:999px; cursor:pointer; }
+  .cartbtn span { background:var(--ink); color:#fff; border-radius:99px; padding:1px 8px; margin-left:4px; }
+  .wrap { max-width:1000px; margin:0 auto; padding:28px 20px 70px; }
+  .crumbs { font:.8rem system-ui,sans-serif; color:var(--mut); margin-bottom:18px; }
+  .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; font:.85rem system-ui,sans-serif; margin:0 0 22px; }
+  .filters select { padding:7px 10px; border:1px solid var(--line); border-radius:8px; background:#fff; font:inherit; }
+  .count { color:var(--mut); margin-left:auto; }
+  .product { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+  @media (max-width:720px) { .product { grid-template-columns:1fr; } nav { display:none; } }
+  .pic { background:#fff; border:1px solid var(--line); border-radius:18px; padding:20px; position:relative; }
+  .ph { position:relative; isolation:isolate; border-radius:10px; overflow:hidden; line-height:0; }
+  .tint { position:absolute; inset:0; background:#fff; mix-blend-mode:multiply; transition:background .35s; pointer-events:none; }
+  .pic img { width:100%; height:auto; display:block; border-radius:10px; }
+  .tag { z-index:2; position:absolute; top:14px; left:14px; font:700 .72rem system-ui,sans-serif; background:var(--blue); color:#fff; padding:5px 10px; border-radius:99px; letter-spacing:.06em; }
+  .info h1 { font-size:2rem; margin:0 0 6px; }
+  .made { font:600 .85rem system-ui,sans-serif; color:var(--blue); margin-bottom:14px; }
+  .price { font:700 1.7rem system-ui,sans-serif; } .price s { color:var(--mut); font-weight:400; font-size:1.1rem; margin-left:8px; }
+  .desc { line-height:1.6; color:#333; margin:14px 0 18px; }
+  .opt { margin:14px 0; font:.85rem system-ui,sans-serif; }
+  .opt label { display:block; font-weight:700; margin-bottom:6px; }
+  .sizes { display:flex; flex-wrap:wrap; gap:8px; }
+  .sizes button { min-width:48px; padding:10px 12px; border:1.5px solid var(--line); background:#fff; border-radius:10px; cursor:pointer; font:600 .9rem system-ui,sans-serif; }
+  .sizes button.shake { animation:sh .35s; }
+  .sizes button.on { border-color:var(--ink); background:var(--ink); color:#fff; }
+  .swatch { display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border:1.5px solid var(--ink); border-radius:10px; font:600 .9rem system-ui,sans-serif; }
+  .swatch i { width:18px; height:18px; border-radius:50%; background:#fff; border:1.5px solid var(--ink); }
+  .colors { display:flex; gap:10px; flex-wrap:wrap; }
+  .colors button { width:38px; height:38px; border-radius:50%; border:2px solid var(--line); cursor:pointer; padding:0; position:relative; }
+  .colors button.on { outline:3px solid var(--ink); outline-offset:2px; }
+  .colors button.shake { animation:sh .35s; }
+  @keyframes sh { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+  .mats { display:flex; gap:8px; flex-wrap:wrap; }
+  .mats button { padding:8px 12px; border:1.5px solid var(--line); background:#fff; border-radius:10px; cursor:pointer; font:600 .82rem system-ui,sans-serif; }
+  .mats button.on { border-color:var(--ink); background:var(--ink); color:#fff; }
+  .matnote { margin-top:8px; font:.82rem system-ui,sans-serif; color:var(--mut); min-height:2.4em; }
+  .matnote.err { color:var(--red); font-weight:700; }
+  .buy { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .qty { display:flex; align-items:center; border:1.5px solid var(--line); border-radius:10px; background:#fff; }
+  .qty button { width:38px; height:44px; border:0; background:none; font-size:1.2rem; cursor:pointer; }
+  .qty span { min-width:30px; text-align:center; font:700 1rem system-ui,sans-serif; }
+  .add { flex:1; min-width:180px; padding:14px 20px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:700 1rem system-ui,sans-serif; cursor:pointer; }
+  .add:active { transform:scale(.98); }
+  .perks { margin:20px 0 0; padding:0; list-style:none; font:.85rem system-ui,sans-serif; color:#444; }
+  .perks li { padding:6px 0; border-top:1px solid var(--line); }
+  .reviews { margin-top:44px; } .reviews h2 { font-size:1.3rem; }
+  .rev { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0; font:.9rem system-ui,sans-serif; }
+  .rev b { display:block; margin-bottom:4px; } .stars { color:#e8a100; }
+  #shade { position:fixed; inset:0; background:#0006; display:none; z-index:20; } #shade.on { display:block; }
+  #drawer { position:fixed; top:0; right:0; height:100%; width:min(400px,100%); background:#fff; z-index:21; transform:translateX(105%); transition:transform .25s; display:flex; flex-direction:column; font-family:system-ui,sans-serif; box-shadow:-10px 0 40px #0003; }
+  #drawer.on { transform:none; }
+  #drawer h3 { margin:0; padding:18px 20px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
+  #drawer h3 button { border:0; background:none; font-size:1.4rem; cursor:pointer; }
+  #items { flex:1; overflow:auto; padding:10px 20px; }
+  .line { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); font-size:.9rem; }
+  .line svg { width:54px; flex:none; border:1px solid var(--line); border-radius:8px; }
+  .line div { flex:1; } .line small { color:var(--mut); }
+  .line button { border:0; background:none; color:var(--red); cursor:pointer; font-size:.8rem; }
+  #foot { padding:16px 20px; border-top:1px solid var(--line); }
+  .tot { display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-bottom:12px; }
+  .promo-row { display:flex; gap:8px; margin-bottom:10px; }
+  .promo-row input { flex:1; min-width:0; padding:10px 12px; border:1.5px solid var(--line); border-radius:10px; font:600 .9rem system-ui,sans-serif; }
+  .promo-row button { padding:10px 14px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:700 .85rem system-ui,sans-serif; cursor:pointer; }
+  .promo-msg { font:600 .8rem system-ui,sans-serif; min-height:1.2em; margin-bottom:8px; }
+  .promo-msg.ok { color:#1d8a3a; } .promo-msg.ko { color:var(--red); }
+  .sub { display:flex; justify-content:space-between; font:.9rem system-ui,sans-serif; color:var(--mut); margin-bottom:6px; }
+  .pay { width:100%; padding:14px; border:0; border-radius:10px; background:var(--blue); color:#fff; font:700 1rem system-ui,sans-serif; cursor:pointer; }
+  .empty { text-align:center; color:var(--mut); padding:40px 0; }
+  #toast { position:fixed; left:50%; bottom:24px; transform:translate(-50%,120px); background:var(--ink); color:#fff; padding:12px 20px; border-radius:99px; font:600 .9rem system-ui,sans-serif; transition:transform .25s; z-index:30; }
+  #toast.on { transform:translate(-50%,0); }
+  #end { position:fixed; inset:0; background:#fff; z-index:40; display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; gap:10px; }
+  #end.on { display:flex; } #end h2 { font-size:2rem; margin:0; } #end p { max-width:440px; color:#444; line-height:1.5; font-family:system-ui,sans-serif; }
+  .subbtn { display:inline-block; margin-top:6px; padding:14px 26px; border-radius:999px; background:#ff0000; color:#fff; font:800 1.05rem system-ui,sans-serif; text-decoration:none; }
+  #end button { padding:12px 22px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:700 1rem system-ui,sans-serif; cursor:pointer; margin-top:8px; }
+  footer { text-align:center; padding:26px 16px 40px; color:var(--mut); font:.78rem system-ui,sans-serif; border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+<div class="flag"></div>
+<div class="promo">🚚 Livraison gratuite dès 1 t-shirt blanc · 🇫🇷 Importé en France</div>
+
+<header>
+  <a class="logo" href="#">LE T-SHIRT BLANC<small>IMPORTÉ EN FRANCE</small></a>
+  <nav><b>T-shirt blanc</b></nav>
+  <button class="cartbtn" id="openCart">🛒 Panier <span id="count">0</span></button>
+</header>
+
+<div class="wrap">
+  <div class="crumbs">Accueil › Collection › T-shirts blancs › <b>T-shirt blanc</b></div>
+
+  <div class="product">
+    <div class="pic">
+      <div class="tag">BEST-SELLER (LE SEUL)</div>
+      <div class="ph" id="ph"><img id="tee" src="photos/tshirt.jpg" alt="T-shirt blanc, importé en France" width="900" height="1200"><div class="tint" id="tint"></div></div>
+    </div>
+
+    <div class="info">
+      <h1>T-shirt blanc</h1>
+      <div class="made">🇫🇷 Importé en France</div>
+      <div class="price">95,00 € <s>95,00 €</s></div>
+      <p class="desc">Un t-shirt. Il est blanc. Il a été importé en France, où il est désormais disponible. Disponible en plusieurs couleurs. Fabriqué dans la pire matière possible, parce que la qualité, c'est surfait.</p>
+
+      <div class="opt"><label>Couleur : <span id="colName">Blanc</span></label><div class="colors" id="colors"></div></div>
+      <div class="opt"><label>Matière</label><div class="mats" id="mats"></div><div class="matnote" id="matNote">Polyester de sac-poubelle recyclé (la pire matière, sélectionnée d'office)</div></div>
+      <div class="opt"><label>Taille</label>
+        <div class="sizes" id="sizes"></div><div class="matnote" id="sizeNote">Choisis ta taille.</div>
+      </div>
+
+      <div class="buy">
+        <div class="qty"><button id="minus">−</button><span id="qty">1</span><button id="plus">+</button></div>
+        <button class="add" id="add">Ajouter le t-shirt blanc au panier</button>
+      </div>
+      <div class="matnote" id="lotNote">Vendu à l'unité (enfin… voir plus bas).</div>
+
+      <ul class="perks">
+        <li>🎨 Toutes les couleurs, sauf le noir (rupture de stock)</li>
+        <li>🗑️ 100 % sac-poubelle, garanti sans coton</li>
+        <li>🇫🇷 Importé en France (pas fabriqué, importé, c'est important)</li>
+        <li>📦 Expédié par notre fournisseur turc : lots de 5 uniquement (on n'a pas d'entrepôt)</li>
+        <li>↩️ Retour impossible : il est déjà blanc</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="shade"></div>
+<aside id="drawer" aria-label="Panier">
+  <h3>Mon panier <button id="closeCart" aria-label="Fermer">×</button></h3>
+  <div id="items"></div>
+  <div id="foot">
+    <div class="promo-row"><input id="promoIn" placeholder="Code promo" autocomplete="off" autocapitalize="off" spellcheck="false"><button id="promoBtn">Appliquer</button></div>
+    <div class="promo-msg" id="promoMsg"></div>
+    <div class="sub" id="discRow" style="display:none"><span>Réduction <b id="discCode"></b></span><span id="discAmt"></span></div>
+    <div class="tot"><span>Total</span><span id="total">0,00 €</span></div>
+    <button class="pay" id="pay">Passer la commande</button>
+  </div>
+</aside>
+<div id="toast"></div>
+<div id="end">
+  <div style="font-size:3rem">🔔👕</div>
+  <h2>Le paiement, c'est un abonnement</h2>
+  <p>Ton t-shirt blanc est réservé. Pour le régler, il suffit de t'abonner à la chaîne YouTube. Aucun argent n'est demandé. Livraison : dans environ jamais.</p>
+  <a class="subbtn" id="subLink" href="https://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1" target="_blank" rel="noopener">▶ Payer en m'abonnant</a>
+  <button id="endBtn">Recommencer un t-shirt blanc</button>
+</div>
+
+<script>
+  var PROMO = "ladaronajordan", PROMO_RATE = 0.20, promoOn = false, PRICE = 95.00, SIZES = ["XS","S","M","L","XL","XXL"], size = "XXL", qty = 1, cart = [];
+  function $(id) { return document.getElementById(id); }
+  function load() { try { cart = JSON.parse(localStorage.getItem("cart") || "[]"); promoOn = localStorage.getItem("promo") === "1"; } catch (e) { cart = []; } }
+  function save() { try { localStorage.setItem("cart", JSON.stringify(cart)); localStorage.setItem("promo", promoOn ? "1" : "0"); } catch (e) {} }
+  function eur(n) { return n.toFixed(2).replace(".", ",") + " €"; }
+
+  var SIZE_MSGS = {
+    XS: "XS : impossible, personne n'est aussi petit.",
+    S: "S : impossible, le fournisseur n'a pas de petits clients.",
+    M: "M : impossible, la taille moyenne n'existe pas en Turquie.",
+    L: "L : impossible, le L s'est perdu en douane.",
+    XL: "XL : impossible, déjà vendu à un monsieur de Lyon."
+  };
+  SIZES.forEach(function (s) {
+    var b = document.createElement("button"); b.textContent = s; if (s === size) b.className = "on";
+    b.onclick = function () {
+      if (s === size) { toast("XXL : dernière taille restante. On ne peut plus la retirer, désolé."); b.className = "on shake"; setTimeout(function () { b.className = "on"; }, 400); return; }
+      toast(SIZE_MSGS[s]); b.style.display = "none";
+      $("sizeNote").textContent = "Il ne reste plus que : " + [].filter.call($("sizes").children, function (x) { return x.style.display !== "none"; }).map(function (x) { return x.textContent; }).join(", ");
+    };
+    $("sizes").appendChild(b);
+  });
+  $("minus").onclick = function () { qty = Math.max(1, qty - 1); $("qty").textContent = qty; if (qty < 5) lotNote(false); };
+  $("plus").onclick = function () { qty = Math.min(95, qty + 1); $("qty").textContent = qty; };
+  function lotNote(force) {
+    var n = $("lotNote"); n.className = "matnote err";
+    n.textContent = "📦 Notre fournisseur turc ne vend que par lots de 5 (on n'a pas d'entrepôt). Quantité passée à 5.";
+    if (force) toast("Lot de 5 obligatoire. Fournisseur turc, pas de négociation.");
+  }
+
+  var COLORS = [["Blanc","#ffffff"],["Noir","#111111"],["Rouge","#e0504a"],["Bleu","#4a6fe0"],["Vert","#4fbf6a"],["Jaune","#f5d33a"],["Rose","#f6a8cb"]];
+  var MATS = [["Polyester de sac-poubelle",""],["Coton","Impossible : le coton n'existe pas. Personne n'en a jamais vu."],["Lin","Le lin ? Jamais entendu parler."],["Soie","Trop bien pour ce t-shirt. Refusé."],["Laine","Il fait trop chaud pour de la laine."]];
+  var DEFAULT_NOTE = "Polyester de sac-poubelle recyclé (la pire matière, sélectionnée d'office)";
+
+  var curColor = 0;
+  function tintColor(i) { $("tint").style.background = i === 0 ? "#ffffff" : COLORS[i][1]; }
+  function pickColor(i, btn) {
+    if (COLORS[i][0] === "Noir") {
+      toast("Noir : plus en stock. Retour au blanc.");
+      if (btn) { btn.className = "shake"; setTimeout(function () { setColor(0); }, 600); } else setColor(0);
+      return;
+    }
+    setColor(i);
+  }
+  function setColor(i) {
+    curColor = i; tintColor(i);
+    $("colName").textContent = COLORS[i][0];
+    [].forEach.call($("colors").children, function (x, k) { x.className = k === i ? "on" : ""; });
+  }
+  function pickMat(i, btn) {
+    var note = $("matNote");
+    if (i === 0) { note.className = "matnote"; note.textContent = DEFAULT_NOTE; } else { note.className = "matnote err"; note.textContent = MATS[i][1]; toast(MATS[i][1]); }
+    [].forEach.call($("mats").children, function (x, k) { x.className = k === 0 ? "on" : ""; });
+    if (i) {
+      if (btn) btn.style.display = "none";
+      setTimeout(function () { note.className = "matnote"; note.textContent = DEFAULT_NOTE; }, 2500);
+    }
+  }
+  COLORS.forEach(function (c, i) {
+    var b = document.createElement("button"); b.style.background = c[1]; b.title = c[0]; b.setAttribute("aria-label", c[0]);
+    if (!i) b.className = "on";
+    b.onclick = function () { pickColor(i, b); };
+    $("colors").appendChild(b);
+  });
+  MATS.forEach(function (m, i) {
+    var b = document.createElement("button"); b.textContent = m[0]; if (!i) b.className = "on";
+    b.onclick = function () { pickMat(i, b); };
+    $("mats").appendChild(b);
+  });
+
+  function toast(t) { var e = $("toast"); e.textContent = t; e.className = "on"; clearTimeout(toast.t); toast.t = setTimeout(function () { e.className = ""; }, 1800); }
+
+  $("add").onclick = function () {
+    if (qty % 5) { qty = Math.ceil(qty / 5) * 5; $("qty").textContent = qty; lotNote(true); }
+    var cn = COLORS[curColor][0];
+    var f = cart.filter(function (l) { return l.size === size && l.color === cn; })[0];
+    if (f) f.qty += qty; else cart.push({ size: size, color: cn, qty: qty });
+    save(); render(); toast("👕 " + qty + " t-shirt " + COLORS[curColor][0].toLowerCase() + " (" + size + ") ajouté");
+    qty = 1; $("qty").textContent = 1;
+  };
+
+  function mini(color) {
+    var c = (COLORS.filter(function (x) { return x[0] === color; })[0] || COLORS[0])[1];
+    return '<span style="position:relative;isolation:isolate;width:54px;height:54px;flex:none;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:block"><img src="photos/tshirt.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><i style="position:absolute;inset:0;background:' + c + ';mix-blend-mode:multiply"></i></span>';
+  }
+  function render() {
+    var n = 0, t = 0; cart.forEach(function (l) { n += l.qty; t += l.qty * PRICE; });
+    var disc = promoOn ? t * PROMO_RATE : 0;
+    $("count").textContent = n; $("total").textContent = eur(t - disc);
+    $("discRow").style.display = promoOn && n ? "flex" : "none";
+    $("discCode").textContent = "(" + PROMO + " −20 %)"; $("discAmt").textContent = "−" + eur(disc);
+    if (promoOn) { $("promoMsg").className = "promo-msg ok"; $("promoMsg").textContent = "✅ Code appliqué : −20 %"; $("promoIn").value = PROMO; }
+    $("pay").disabled = !n; $("pay").style.opacity = n ? 1 : .4;
+    $("items").innerHTML = cart.length ? "" : '<div class="empty">Panier vide.<br>Il manque un t-shirt blanc.</div>';
+    cart.forEach(function (l, i) {
+      var d = document.createElement("div"); d.className = "line";
+      d.innerHTML = mini(l.color) + '<div><b>T-shirt blanc</b><br><small>' + (l.color || 'Blanc') + ' · Taille ' + l.size + ' · ' + l.qty + ' × ' + eur(PRICE) + '</small></div><button>Retirer</button>';
+      d.querySelector("button").onclick = function () { cart.splice(i, 1); save(); render(); };
+      $("items").appendChild(d);
+    });
+  }
+  function drawer(on) { $("drawer").className = on ? "on" : ""; $("shade").className = on ? "on" : ""; }
+  $("openCart").onclick = function () { drawer(true); };
+  $("closeCart").onclick = $("shade").onclick = function () { drawer(false); };
+  $("pay").onclick = function () {
+    drawer(false); $("end").className = "on";
+    try { window.open($("subLink").href, "_blank", "noopener"); } catch (e) {}
+  };
+  $("endBtn").onclick = function () { cart = []; save(); render(); $("end").className = ""; };
+
+  $("promoBtn").onclick = function () {
+    var v = $("promoIn").value.trim().toLowerCase(), m = $("promoMsg");
+    if (v === PROMO) { promoOn = true; save(); render(); toast("🎉 Code promo −20 % appliqué"); }
+    else { promoOn = false; save(); render(); m.className = "promo-msg ko"; m.textContent = v ? "Code invalide." : "Entre un code promo."; }
+  };
+  $("promoIn").addEventListener("keydown", function (e) { if (e.key === "Enter") $("promoBtn").click(); });
+
+  load(); render();
+</script>
+</body>
+</html>

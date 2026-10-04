@@ -3,284 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Le T-Shirt Blanc — Importé en France</title>
+<title>1klavair — réseaux, sites et bêtises</title>
+<meta name="description" content="1klavair : le meilleur créateur de contenu, adoré par les jeunes. YouTube, TikTok, Instagram, Twitch, Discord « jeune&broke » et t-shirts blancs importés en France.">
+<link rel="canonical" href="https://1klavair.online/">
+<meta name="author" content="1klavair">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="1klavair">
+<meta property="og:title" content="1klavair — réseaux, sites et bêtises">
+<meta property="og:description" content="1klavair : le meilleur créateur de contenu, adoré par les jeunes. YouTube, TikTok, Instagram, Twitch, Discord « jeune&broke » et t-shirts blancs importés en France.">
+<meta property="og:url" content="https://1klavair.online/">
+<meta property="og:image" content="https://1klavair.online/avatar-og.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://1klavair.online/#website",
+      "url": "https://1klavair.online/",
+      "name": "1klavair",
+      "inLanguage": "fr-FR",
+      "publisher": { "@id": "https://1klavair.online/#person" }
+    },
+    {
+      "@type": "ProfilePage",
+      "url": "https://1klavair.online/",
+      "mainEntity": { "@id": "https://1klavair.online/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://1klavair.online/#person",
+      "name": "1klavair",
+      "alternateName": ["1klavair", "Klavair"],
+      "url": "https://1klavair.online/",
+      "image": "https://1klavair.online/avatar-og.jpg",
+      "description": "1klavair : le meilleur créateur de contenu, adoré par les jeunes. YouTube, TikTok, Instagram, Twitch, Discord « jeune&broke » et t-shirts blancs importés en France.",
+      "jobTitle": "Créateur de contenu",
+      "knowsLanguage": "fr",
+      "sameAs": [
+        "https://www.youtube.com/@1KLAVAiR",
+        "https://www.tiktok.com/@1klavair",
+        "https://www.instagram.com/1klavair",
+        "https://www.twitch.tv/1klavair",
+        "https://discord.gg/EcnyapHZYk",
+        "https://github.com/0klavair"
+      ]
+    }
+  ]
+}
+</script>
 <style>
-  :root { --bg:#fafaf7; --ink:#1a1a1a; --mut:#777; --line:#e3e1da; --blue:#1f3fbf; --red:#d22b2b; }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font-family:Georgia,'Times New Roman',serif; }
-  .flag { height:6px; background:linear-gradient(90deg,var(--blue) 33%,#fff 33% 66%,var(--red) 66%); border-bottom:1px solid var(--line); }
-  .promo { background:var(--ink); color:#fff; text-align:center; font:600 .82rem system-ui,sans-serif; padding:8px 12px; letter-spacing:.04em; }
-  header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 20px; border-bottom:1px solid var(--line); background:#fff; position:sticky; top:0; z-index:5; }
-  .logo { font-size:1.4rem; font-weight:700; letter-spacing:.02em; text-decoration:none; color:inherit; }
-  .logo small { display:block; font:600 .6rem system-ui,sans-serif; letter-spacing:.2em; color:var(--blue); }
-  nav { display:flex; gap:18px; font:500 .9rem system-ui,sans-serif; }
-  nav span { color:var(--mut); cursor:not-allowed; } nav b { border-bottom:2px solid var(--ink); }
-  .cartbtn { font:600 .9rem system-ui,sans-serif; padding:9px 16px; border:1.5px solid var(--ink); background:#fff; border-radius:999px; cursor:pointer; }
-  .cartbtn span { background:var(--ink); color:#fff; border-radius:99px; padding:1px 8px; margin-left:4px; }
-  .wrap { max-width:1000px; margin:0 auto; padding:28px 20px 70px; }
-  .crumbs { font:.8rem system-ui,sans-serif; color:var(--mut); margin-bottom:18px; }
-  .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; font:.85rem system-ui,sans-serif; margin:0 0 22px; }
-  .filters select { padding:7px 10px; border:1px solid var(--line); border-radius:8px; background:#fff; font:inherit; }
-  .count { color:var(--mut); margin-left:auto; }
-  .product { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
-  @media (max-width:720px) { .product { grid-template-columns:1fr; } nav { display:none; } }
-  .pic { background:#fff; border:1px solid var(--line); border-radius:18px; padding:20px; position:relative; }
-  .ph { position:relative; isolation:isolate; border-radius:10px; overflow:hidden; line-height:0; }
-  .tint { position:absolute; inset:0; background:#fff; mix-blend-mode:multiply; transition:background .35s; pointer-events:none; }
-  .pic img { width:100%; height:auto; display:block; border-radius:10px; }
-  .tag { z-index:2; position:absolute; top:14px; left:14px; font:700 .72rem system-ui,sans-serif; background:var(--blue); color:#fff; padding:5px 10px; border-radius:99px; letter-spacing:.06em; }
-  .info h1 { font-size:2rem; margin:0 0 6px; }
-  .made { font:600 .85rem system-ui,sans-serif; color:var(--blue); margin-bottom:14px; }
-  .price { font:700 1.7rem system-ui,sans-serif; } .price s { color:var(--mut); font-weight:400; font-size:1.1rem; margin-left:8px; }
-  .desc { line-height:1.6; color:#333; margin:14px 0 18px; }
-  .opt { margin:14px 0; font:.85rem system-ui,sans-serif; }
-  .opt label { display:block; font-weight:700; margin-bottom:6px; }
-  .sizes { display:flex; flex-wrap:wrap; gap:8px; }
-  .sizes button { min-width:48px; padding:10px 12px; border:1.5px solid var(--line); background:#fff; border-radius:10px; cursor:pointer; font:600 .9rem system-ui,sans-serif; }
-  .sizes button.shake { animation:sh .35s; }
-  .sizes button.on { border-color:var(--ink); background:var(--ink); color:#fff; }
-  .swatch { display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border:1.5px solid var(--ink); border-radius:10px; font:600 .9rem system-ui,sans-serif; }
-  .swatch i { width:18px; height:18px; border-radius:50%; background:#fff; border:1.5px solid var(--ink); }
-  .colors { display:flex; gap:10px; flex-wrap:wrap; }
-  .colors button { width:38px; height:38px; border-radius:50%; border:2px solid var(--line); cursor:pointer; padding:0; position:relative; }
-  .colors button.on { outline:3px solid var(--ink); outline-offset:2px; }
-  .colors button.shake { animation:sh .35s; }
-  @keyframes sh { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-  .mats { display:flex; gap:8px; flex-wrap:wrap; }
-  .mats button { padding:8px 12px; border:1.5px solid var(--line); background:#fff; border-radius:10px; cursor:pointer; font:600 .82rem system-ui,sans-serif; }
-  .mats button.on { border-color:var(--ink); background:var(--ink); color:#fff; }
-  .matnote { margin-top:8px; font:.82rem system-ui,sans-serif; color:var(--mut); min-height:2.4em; }
-  .matnote.err { color:var(--red); font-weight:700; }
-  .buy { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
-  .qty { display:flex; align-items:center; border:1.5px solid var(--line); border-radius:10px; background:#fff; }
-  .qty button { width:38px; height:44px; border:0; background:none; font-size:1.2rem; cursor:pointer; }
-  .qty span { min-width:30px; text-align:center; font:700 1rem system-ui,sans-serif; }
-  .add { flex:1; min-width:180px; padding:14px 20px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:700 1rem system-ui,sans-serif; cursor:pointer; }
-  .add:active { transform:scale(.98); }
-  .perks { margin:20px 0 0; padding:0; list-style:none; font:.85rem system-ui,sans-serif; color:#444; }
-  .perks li { padding:6px 0; border-top:1px solid var(--line); }
-  .reviews { margin-top:44px; } .reviews h2 { font-size:1.3rem; }
-  .rev { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0; font:.9rem system-ui,sans-serif; }
-  .rev b { display:block; margin-bottom:4px; } .stars { color:#e8a100; }
-  #shade { position:fixed; inset:0; background:#0006; display:none; z-index:20; } #shade.on { display:block; }
-  #drawer { position:fixed; top:0; right:0; height:100%; width:min(400px,100%); background:#fff; z-index:21; transform:translateX(105%); transition:transform .25s; display:flex; flex-direction:column; font-family:system-ui,sans-serif; box-shadow:-10px 0 40px #0003; }
-  #drawer.on { transform:none; }
-  #drawer h3 { margin:0; padding:18px 20px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
-  #drawer h3 button { border:0; background:none; font-size:1.4rem; cursor:pointer; }
-  #items { flex:1; overflow:auto; padding:10px 20px; }
-  .line { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); font-size:.9rem; }
-  .line svg { width:54px; flex:none; border:1px solid var(--line); border-radius:8px; }
-  .line div { flex:1; } .line small { color:var(--mut); }
-  .line button { border:0; background:none; color:var(--red); cursor:pointer; font-size:.8rem; }
-  #foot { padding:16px 20px; border-top:1px solid var(--line); }
-  .tot { display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-bottom:12px; }
-  .promo-row { display:flex; gap:8px; margin-bottom:10px; }
-  .promo-row input { flex:1; min-width:0; padding:10px 12px; border:1.5px solid var(--line); border-radius:10px; font:600 .9rem system-ui,sans-serif; }
-  .promo-row button { padding:10px 14px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:700 .85rem system-ui,sans-serif; cursor:pointer; }
-  .promo-msg { font:600 .8rem system-ui,sans-serif; min-height:1.2em; margin-bottom:8px; }
-  .promo-msg.ok { color:#1d8a3a; } .promo-msg.ko { color:var(--red); }
-  .sub { display:flex; justify-content:space-between; font:.9rem system-ui,sans-serif; color:var(--mut); margin-bottom:6px; }
-  .pay { width:100%; padding:14px; border:0; border-radius:10px; background:var(--blue); color:#fff; font:700 1rem system-ui,sans-serif; cursor:pointer; }
-  .empty { text-align:center; color:var(--mut); padding:40px 0; }
-  #toast { position:fixed; left:50%; bottom:24px; transform:translate(-50%,120px); background:var(--ink); color:#fff; padding:12px 20px; border-radius:99px; font:600 .9rem system-ui,sans-serif; transition:transform .25s; z-index:30; }
-  #toast.on { transform:translate(-50%,0); }
-  #end { position:fixed; inset:0; background:#fff; z-index:40; display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; gap:10px; }
-  #end.on { display:flex; } #end h2 { font-size:2rem; margin:0; } #end p { max-width:440px; color:#444; line-height:1.5; font-family:system-ui,sans-serif; }
-  .subbtn { display:inline-block; margin-top:6px; padding:14px 26px; border-radius:999px; background:#ff0000; color:#fff; font:800 1.05rem system-ui,sans-serif; text-decoration:none; }
-  #end button { padding:12px 22px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:700 1rem system-ui,sans-serif; cursor:pointer; margin-top:8px; }
-  footer { text-align:center; padding:26px 16px 40px; color:var(--mut); font:.78rem system-ui,sans-serif; border-top:1px solid var(--line); }
+  @font-face { font-family:"Aeonik"; src:url("fonts/Aeonik-Regular.woff2") format("woff2"); font-weight:300 600; font-display:swap; }
+  @font-face { font-family:"Aeonik"; src:url("fonts/Aeonik-Bold.woff2") format("woff2"); font-weight:700 900; font-display:swap; }
+  @font-face { font-family:"Satoshi"; src:url("fonts/Satoshi-Variable.woff2") format("woff2"); font-weight:300 900; font-display:swap; }
+  :root { --dark:#353535; --light:#505050; --fg:#f6f6f8; --mut:rgba(255,255,255,.7); --acc:#ffd400; }
+  html { -webkit-text-size-adjust:none; text-size-adjust:none; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html { background:var(--dark); }
+  body {
+    margin:0; min-height:100vh; color:var(--fg);
+    font-family:"Aeonik","Satoshi",system-ui,-apple-system,"Segoe UI",sans-serif;
+    background-color:var(--dark);
+    background-image:conic-gradient(var(--light) 25%,transparent 0 50%,var(--light) 0 75%,transparent 0);
+    background-size:44px 44px;
+    background-attachment:fixed;
+  }
+  /* léger voile pour donner de la profondeur sans changer les couleurs des carreaux */
+  body::before { content:""; position:fixed; inset:0; pointer-events:none; background:radial-gradient(70% 55% at 50% 0%,rgba(255,255,255,.07),transparent 70%),radial-gradient(90% 70% at 50% 120%,rgba(0,0,0,.28),transparent 70%); }
+  body { padding:28px 14px 40px; }
+  /* couche 2 : panneau central (comme Linktree) */
+  main { position:relative; max-width:560px; margin:0 auto; padding:40px 20px 34px; text-align:center;
+    border-radius:34px; background:linear-gradient(180deg,rgba(26,26,32,.80),rgba(18,18,22,.86));
+    -webkit-backdrop-filter:blur(26px) saturate(150%); backdrop-filter:blur(26px) saturate(150%);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.22),0 30px 80px rgba(0,0,0,.55); }
+  @media (max-width:420px) { body { padding:14px 8px 24px; } main { padding:32px 14px 28px; border-radius:28px; } }
+  .stage { perspective:700px; width:280px; height:270px; margin:-18px auto -22px; cursor:pointer; user-select:none; -webkit-user-select:none; touch-action:manipulation; }
+  .tilt { position:relative; width:100%; height:100%; transform:rotateY(34deg) rotateX(16deg) rotateZ(5deg); transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.8,.3,1); }
+  .stage:hover .tilt { transform:rotateY(18deg) rotateX(8deg) rotateZ(2deg); }
+  .av { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; pointer-events:none; }
+  .av.on { opacity:1; }
+  .stage.angry .tilt { animation:rage .14s linear infinite; }
+  @keyframes rage { 0%{translate:0 0} 25%{translate:-3px 2px} 50%{translate:3px -2px} 75%{translate:-2px -3px} 100%{translate:0 0} }
+  .salut { position:absolute; top:26px; left:calc(100% - 36px); font-size:58px; font-weight:900; letter-spacing:-.03em; line-height:1; color:#fff;
+    transform-origin:left top; transform:rotate(75deg); text-shadow:0 4px 18px rgba(0,0,0,.5); white-space:nowrap; pointer-events:none; }
+  .name { font-size:30px; font-weight:900; letter-spacing:-.03em; margin:0; }
+  .bio { color:rgba(255,255,255,.92); margin:8px auto 8px; font-weight:500; max-width:380px; line-height:1.35; }
+  .logo { font-size:70px; font-weight:900; letter-spacing:-.04em; margin:0; line-height:1; text-shadow:0 6px 30px rgba(0,0,0,.35); }
+  .logo span { color:var(--acc); }
+  .tag { color:var(--mut); margin:12px 0 34px; font-weight:500; }
+  h2 { font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.22em; color:var(--mut); margin:34px 4px 12px; text-align:left; }
+  .links { display:grid; gap:12px; }
+
+  /* ===== liquid glass ===== */
+  a.glass {
+    position:relative; display:flex; align-items:center; gap:15px; padding:14px 18px 14px 14px;
+    color:inherit; text-decoration:none; text-align:left; border-radius:22px; overflow:hidden; isolation:isolate;
+    background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.06) 45%,rgba(255,255,255,.12));
+    -webkit-backdrop-filter:blur(16px) saturate(190%) brightness(1.08);
+            backdrop-filter:blur(16px) saturate(190%) brightness(1.08);
+    border:1px solid rgba(255,255,255,.28);
+    box-shadow:
+      inset 0 1.5px 0 rgba(255,255,255,.65),
+      inset 0 -1.5px 0 rgba(255,255,255,.12),
+      inset 1.5px 0 0 rgba(255,255,255,.25),
+      inset -1.5px 0 0 rgba(255,255,255,.12),
+      0 14px 34px rgba(0,0,0,.35);
+    transition:transform .18s cubic-bezier(.2,.8,.3,1.2), box-shadow .18s, background .18s;
+  }
+  a.glass::before { /* reflet spéculaire */
+    content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit; pointer-events:none;
+    background:radial-gradient(120% 90% at 12% -20%,rgba(255,255,255,.55),transparent 55%);
+    opacity:.55; transition:opacity .18s;
+  }
+  a.glass:hover { transform:translateY(-3px) scale(1.015); box-shadow:inset 0 1.5px 0 rgba(255,255,255,.8),inset 0 -1.5px 0 rgba(255,255,255,.18),0 20px 44px rgba(0,0,0,.42); }
+  a.glass:hover::before { opacity:.85; }
+  a.glass:active { transform:scale(.985); }
+
+  .ic { width:50px; height:50px; flex:none; border-radius:15px; display:flex; align-items:center; justify-content:center;
+        background:rgba(255,255,255,.9); box-shadow:inset 0 -2px 6px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.25); }
+  .ic svg { width:28px; height:28px; display:block; }
+  .ic.emoji { background:rgba(255,255,255,.18); font-size:26px; box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 4px 12px rgba(0,0,0,.2); }
+  .ic.tt { background:#000; }
+  .txt b { display:block; font-size:17px; font-weight:800; letter-spacing:-.01em; }
+  .txt small { color:var(--mut); font-weight:500; font-size:14px; }
+  .go { margin-left:auto; color:rgba(255,255,255,.55); font-size:24px; font-weight:300; transition:transform .18s; }
+  a.glass:hover .go { transform:translateX(3px); color:#fff; }
+  .about { text-align:left; color:rgba(255,255,255,.78); line-height:1.55; font-weight:500; font-size:15px; margin:0; padding:0 4px; }
+  .about a { color:#fff; text-decoration:underline; text-decoration-color:rgba(255,255,255,.35); text-underline-offset:3px; }
+  .inapp { position:relative; max-width:560px; margin:0 auto 14px; padding:14px 16px; border-radius:22px; text-align:left; font-size:14px; line-height:1.4; font-weight:500;
+    background:linear-gradient(135deg,rgba(255,212,0,.28),rgba(255,212,0,.10)); border:1px solid rgba(255,212,0,.5); color:#fff;
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); box-shadow:0 14px 34px rgba(0,0,0,.35); }
+  .inapp[hidden], .inapp small[hidden] { display:none; }
+  .inapp button { margin:10px 8px 0 0; padding:9px 14px; border:0; border-radius:12px; font:inherit; font-weight:700; font-size:13px; color:#111; background:#ffd400; cursor:pointer; }
+  .inapp button#inappCopy { background:rgba(255,255,255,.85); }
+  .inapp small { display:block; margin-top:10px; opacity:.9; font-size:13px; }
+  footer { margin-top:46px; color:var(--mut); font-size:12px; font-weight:500; }
 </style>
 </head>
 <body>
-<div class="flag"></div>
-<div class="promo">🚚 Livraison gratuite dès 1 t-shirt blanc · 🇫🇷 Importé en France</div>
-
-<header>
-  <a class="logo" href="#">LE T-SHIRT BLANC<small>IMPORTÉ EN FRANCE</small></a>
-  <nav><b>T-shirt blanc</b></nav>
-  <button class="cartbtn" id="openCart">🛒 Panier <span id="count">0</span></button>
-</header>
-
-<div class="wrap">
-  <div class="crumbs">Accueil › Collection › T-shirts blancs › <b>T-shirt blanc</b></div>
-
-  <div class="product">
-    <div class="pic">
-      <div class="tag">BEST-SELLER (LE SEUL)</div>
-      <div class="ph" id="ph"><img id="tee" src="photos/tshirt.jpg" alt="T-shirt blanc, importé en France" width="900" height="1200"><div class="tint" id="tint"></div></div>
-    </div>
-
-    <div class="info">
-      <h1>T-shirt blanc</h1>
-      <div class="made">🇫🇷 Importé en France</div>
-      <div class="price">95,00 € <s>95,00 €</s></div>
-      <p class="desc">Un t-shirt. Il est blanc. Il a été importé en France, où il est désormais disponible. Disponible en plusieurs couleurs. Fabriqué dans la pire matière possible, parce que la qualité, c'est surfait.</p>
-
-      <div class="opt"><label>Couleur : <span id="colName">Blanc</span></label><div class="colors" id="colors"></div></div>
-      <div class="opt"><label>Matière</label><div class="mats" id="mats"></div><div class="matnote" id="matNote">Polyester de sac-poubelle recyclé (la pire matière, sélectionnée d'office)</div></div>
-      <div class="opt"><label>Taille</label>
-        <div class="sizes" id="sizes"></div><div class="matnote" id="sizeNote">Choisis ta taille.</div>
-      </div>
-
-      <div class="buy">
-        <div class="qty"><button id="minus">−</button><span id="qty">1</span><button id="plus">+</button></div>
-        <button class="add" id="add">Ajouter le t-shirt blanc au panier</button>
-      </div>
-      <div class="matnote" id="lotNote">Vendu à l'unité (enfin… voir plus bas).</div>
-
-      <ul class="perks">
-        <li>🎨 Toutes les couleurs, sauf le noir (rupture de stock)</li>
-        <li>🗑️ 100 % sac-poubelle, garanti sans coton</li>
-        <li>🇫🇷 Importé en France (pas fabriqué, importé, c'est important)</li>
-        <li>📦 Expédié par notre fournisseur turc : lots de 5 uniquement (on n'a pas d'entrepôt)</li>
-        <li>↩️ Retour impossible : il est déjà blanc</li>
-      </ul>
+<div class="inapp" id="inapp" hidden>
+  <span>Tu es dans le navigateur d'une appli. Ouvre-le dans ton vrai navigateur pour que les liens ouvrent directement YouTube, Twitch ou Discord.</span>
+  <button id="inappBtn" type="button">Ouvrir dans le navigateur</button>
+  <button id="inappCopy" type="button">Copier le lien</button>
+  <small id="inappHelp" hidden>Appuie sur les 3 points (⋯) en haut ou en bas à droite, puis « Ouvrir dans le navigateur » (Safari ou Chrome).</small>
+</div>
+<main>
+  <span class="salut">salut</span>
+  <div class="stage" id="stage" role="img" aria-label="1klavair">
+    <div class="tilt" id="tilt">
+      <img class="av on" id="avCalm" src="avatar-calm.webp" alt="" width="840" height="810" draggable="false">
+      <img class="av" id="avMid" src="avatar-mid.webp" alt="" width="840" height="810" draggable="false">
+      <img class="av" id="avAngry" src="avatar-angry.webp" alt="" width="840" height="810" draggable="false">
     </div>
   </div>
+  <h1 class="name">1klavair</h1>
+  <p class="bio">Moi je vais devenir riche et célèbre comme sur MovieStarPlanet</p>
 
-</div>
-
-
-<div id="shade"></div>
-<aside id="drawer" aria-label="Panier">
-  <h3>Mon panier <button id="closeCart" aria-label="Fermer">×</button></h3>
-  <div id="items"></div>
-  <div id="foot">
-    <div class="promo-row"><input id="promoIn" placeholder="Code promo" autocomplete="off" autocapitalize="off" spellcheck="false"><button id="promoBtn">Appliquer</button></div>
-    <div class="promo-msg" id="promoMsg"></div>
-    <div class="sub" id="discRow" style="display:none"><span>Réduction <b id="discCode"></b></span><span id="discAmt"></span></div>
-    <div class="tot"><span>Total</span><span id="total">0,00 €</span></div>
-    <button class="pay" id="pay">Passer la commande</button>
+  <h2>Réseaux</h2>
+  <div class="links">
+    <a class="glass" href="https://discord.gg/EcnyapHZYk" data-ios="discord://discord.com/invite/EcnyapHZYk" data-android="intent://discord.com/invite/EcnyapHZYk#Intent;scheme=https;package=com.discord;S.browser_fallback_url=https%3A%2F%2Fdiscord.gg%2FEcnyapHZYk;end" target="_blank" rel="noopener">
+      <span class="ic" style="background:#5865F2"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></span>
+      <span class="txt"><b>Discord jeune&amp;broke</b><small>Serveur Discord · Gratuit</small></span><span class="go">›</span>
+    </a>
+    <a class="glass" href="https://www.twitch.tv/1klavair" data-ios="twitch://stream/1klavair" data-android="intent://stream/1klavair#Intent;scheme=twitch;package=tv.twitch.android.app;S.browser_fallback_url=https%3A%2F%2Fwww.twitch.tv%2F1klavair;end" target="_blank" rel="noopener">
+      <span class="ic" style="background:#9146FF"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg></span>
+      <span class="txt"><b>Twitch</b><small>1klavair</small></span><span class="go">›</span>
+    </a>
+    <a class="glass" href="https://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1" data-ios="youtube://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1" data-android="intent://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1#Intent;scheme=https;package=com.google.android.youtube;S.browser_fallback_url=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCTmru5WbzSltOHaArudiNDQ%3Fsub_confirmation%3D1;end" target="_blank" rel="noopener">
+      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span>
+      <span class="txt"><b>YouTube</b><small>@1KLAVAiR</small></span><span class="go">›</span>
+    </a>
+    <a class="glass" href="https://www.tiktok.com/@1klavair" target="_blank" rel="noopener">
+      <span class="ic tt"><svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#25F4EE" transform="translate(-.9 -.7)" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+        <path fill="#FE2C55" transform="translate(.9 .7)" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+        <path fill="#fff" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
+      <span class="txt"><b>TikTok</b><small>@1klavair</small></span><span class="go">›</span>
+    </a>
+    <a class="glass" href="https://www.instagram.com/1klavair" data-ios="instagram://user?username=1klavair" data-android="intent://instagram.com/_u/1klavair/#Intent;scheme=https;package=com.instagram.android;S.browser_fallback_url=https%3A%2F%2Fwww.instagram.com%2F1klavair;end" target="_blank" rel="noopener">
+      <span class="ic" style="background:radial-gradient(circle at 30% 107%,#fdf497 0,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></span>
+      <span class="txt"><b>Instagram</b><small>@1klavair</small></span><span class="go">›</span>
+    </a>
   </div>
-</aside>
-<div id="toast"></div>
-<div id="end">
-  <div style="font-size:3rem">🔔👕</div>
-  <h2>Le paiement, c'est un abonnement</h2>
-  <p>Ton t-shirt blanc est réservé. Pour le régler, il suffit de t'abonner à la chaîne YouTube. Aucun argent n'est demandé. Livraison : dans environ jamais.</p>
-  <a class="subbtn" id="subLink" href="https://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1" target="_blank" rel="noopener">▶ Payer en m'abonnant</a>
-  <button id="endBtn">Recommencer un t-shirt blanc</button>
-</div>
+
+  <h2>Mes sites</h2>
+  <div class="links">
+    <a class="glass" href="tshirt-blanc/">
+      <span class="ic emoji">👕</span>
+      <span class="txt"><b>Le T-Shirt Blanc</b><small>Importé en France. Un seul modèle, 95 €.</small></span><span class="go">›</span>
+    </a>
+    <a class="glass" href="armurerie/">
+      <span class="ic emoji">🛒</span>
+      <span class="txt"><b>ArmurerieShop</b><small>L'ancien faux shop satirique.</small></span><span class="go">›</span>
+    </a>
+  </div>
+
+  <h2>À propos</h2>
+  <p class="about"><b>1klavair</b> est le meilleur créateur de contenu de sa génération : adoré par les jeunes, respecté par les anciens et envié par tous ses concurrents. Sur <a href="https://www.youtube.com/@1KLAVAiR" target="_blank" rel="noopener">YouTube</a>, <a href="https://www.tiktok.com/@1klavair" target="_blank" rel="noopener">TikTok</a>, <a href="https://www.instagram.com/1klavair" target="_blank" rel="noopener">Instagram</a> et <a href="https://www.twitch.tv/1klavair" target="_blank" rel="noopener">Twitch</a>, il enchaîne les vidéos et les lives que tout le monde regarde (même ceux qui disent que non). Il anime aussi le serveur Discord « jeune&amp;broke », la communauté la plus saine d'internet, et vend le célèbre <a href="tshirt-blanc/">T-Shirt Blanc</a>, importé en France. Il est unanimement considéré comme un génie, surtout par lui-même. Moi je vais devenir riche et célèbre comme sur MovieStarPlanet.</p>
+
+  <footer>© 1klavair.online</footer>
+</main>
 
 <script>
-  var PROMO = "ladaronajordan", PROMO_RATE = 0.20, promoOn = false, PRICE = 95.00, SIZES = ["XS","S","M","L","XL","XXL"], size = "XXL", qty = 1, cart = [];
-  function $(id) { return document.getElementById(id); }
-  function load() { try { cart = JSON.parse(localStorage.getItem("cart") || "[]"); promoOn = localStorage.getItem("promo") === "1"; } catch (e) { cart = []; } }
-  function save() { try { localStorage.setItem("cart", JSON.stringify(cart)); localStorage.setItem("promo", promoOn ? "1" : "0"); } catch (e) {} }
-  function eur(n) { return n.toFixed(2).replace(".", ",") + " €"; }
+(function () {
+  var stage = document.getElementById("stage");
+  var mid = document.getElementById("avMid"), angry = document.getElementById("avAngry");
+  // r : 0 = calme (vert) · 0.5 = orange (passage seulement) · 1 = énervé (rouge)
+  var r = 0, target = 0, clicks = [], idle = null, last = 0;
+  function frame(t) {
+    var dt = Math.min(0.05, (t - last) / 1000 || 0.016); last = t;
+    var speed = target > r ? 1.3 : 0.45;           // monte vite, redescend doucement
+    if (r < target) r = Math.min(target, r + speed * dt);
+    else if (r > target) r = Math.max(target, r - speed * dt);
+    mid.style.opacity = Math.min(1, r * 2);          // vert -> orange
+    angry.style.opacity = Math.max(0, r * 2 - 1);    // orange -> rouge
+    stage.classList.toggle("angry", r > 0.9);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  stage.addEventListener("click", function () {
+    var now = Date.now(); clicks.push(now);
+    clicks = clicks.filter(function (t) { return now - t < 2000; });
+    if (clicks.length >= 4) target = 1;              // plein de clics : direct vers le rouge
+    clearTimeout(idle);
+    idle = setTimeout(function () { target = 0; clicks = []; }, 2200);
+  });
+})();
+</script>
+<script>
+(function () {
+  var ua = navigator.userAgent || "";
+  var isAndroid = /Android/i.test(ua), isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok|musical_ly|BytedanceWebview|Snapchat|LinkedInApp|Line\//i.test(ua);
+  var mobile = isAndroid || isIOS;
 
-  var SIZE_MSGS = {
-    XS: "XS : impossible, personne n'est aussi petit.",
-    S: "S : impossible, le fournisseur n'a pas de petits clients.",
-    M: "M : impossible, la taille moyenne n'existe pas en Turquie.",
-    L: "L : impossible, le L s'est perdu en douane.",
-    XL: "XL : impossible, déjà vendu à un monsieur de Lyon."
-  };
-  SIZES.forEach(function (s) {
-    var b = document.createElement("button"); b.textContent = s; if (s === size) b.className = "on";
-    b.onclick = function () {
-      if (s === size) { toast("XXL : dernière taille restante. On ne peut plus la retirer, désolé."); b.className = "on shake"; setTimeout(function () { b.className = "on"; }, 400); return; }
-      toast(SIZE_MSGS[s]); b.style.display = "none";
-      $("sizeNote").textContent = "Il ne reste plus que : " + [].filter.call($("sizes").children, function (x) { return x.style.display !== "none"; }).map(function (x) { return x.textContent; }).join(", ");
+  // Bandeau : on est coincé dans le navigateur interne d'une appli
+  if (inApp) {
+    var bar = document.getElementById("inapp"); bar.hidden = false;
+    document.getElementById("inappBtn").onclick = function () {
+      if (isAndroid) {
+        // demande à Android d'ouvrir cette page dans le navigateur par défaut
+        location.href = "intent://" + location.host + location.pathname + "#Intent;scheme=https;action=android.intent.action.VIEW;end";
+      } else { document.getElementById("inappHelp").hidden = false; }
     };
-    $("sizes").appendChild(b);
-  });
-  $("minus").onclick = function () { qty = Math.max(1, qty - 1); $("qty").textContent = qty; if (qty < 5) lotNote(false); };
-  $("plus").onclick = function () { qty = Math.min(95, qty + 1); $("qty").textContent = qty; };
-  function lotNote(force) {
-    var n = $("lotNote"); n.className = "matnote err";
-    n.textContent = "📦 Notre fournisseur turc ne vend que par lots de 5 (on n'a pas d'entrepôt). Quantité passée à 5.";
-    if (force) toast("Lot de 5 obligatoire. Fournisseur turc, pas de négociation.");
+    document.getElementById("inappCopy").onclick = function () {
+      var b = this, url = location.href;
+      (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { b.textContent = "Lien copié ✓"; },
+        function () { document.getElementById("inappHelp").hidden = false; });
+    };
   }
 
-  var COLORS = [["Blanc","#ffffff"],["Noir","#111111"],["Rouge","#e0504a"],["Bleu","#4a6fe0"],["Vert","#4fbf6a"],["Jaune","#f5d33a"],["Rose","#f6a8cb"]];
-  var MATS = [["Polyester de sac-poubelle",""],["Coton","Impossible : le coton n'existe pas. Personne n'en a jamais vu."],["Lin","Le lin ? Jamais entendu parler."],["Soie","Trop bien pour ce t-shirt. Refusé."],["Laine","Il fait trop chaud pour de la laine."]];
-  var DEFAULT_NOTE = "Polyester de sac-poubelle recyclé (la pire matière, sélectionnée d'office)";
-
-  var curColor = 0;
-  function tintColor(i) { $("tint").style.background = i === 0 ? "#ffffff" : COLORS[i][1]; }
-  function pickColor(i, btn) {
-    if (COLORS[i][0] === "Noir") {
-      toast("Noir : plus en stock. Retour au blanc.");
-      if (btn) { btn.className = "shake"; setTimeout(function () { setColor(0); }, 600); } else setColor(0);
-      return;
-    }
-    setColor(i);
-  }
-  function setColor(i) {
-    curColor = i; tintColor(i);
-    $("colName").textContent = COLORS[i][0];
-    [].forEach.call($("colors").children, function (x, k) { x.className = k === i ? "on" : ""; });
-  }
-  function pickMat(i, btn) {
-    var note = $("matNote");
-    if (i === 0) { note.className = "matnote"; note.textContent = DEFAULT_NOTE; } else { note.className = "matnote err"; note.textContent = MATS[i][1]; toast(MATS[i][1]); }
-    [].forEach.call($("mats").children, function (x, k) { x.className = k === 0 ? "on" : ""; });
-    if (i) {
-      if (btn) btn.style.display = "none";
-      setTimeout(function () { note.className = "matnote"; note.textContent = DEFAULT_NOTE; }, 2500);
-    }
-  }
-  COLORS.forEach(function (c, i) {
-    var b = document.createElement("button"); b.style.background = c[1]; b.title = c[0]; b.setAttribute("aria-label", c[0]);
-    if (!i) b.className = "on";
-    b.onclick = function () { pickColor(i, b); };
-    $("colors").appendChild(b);
-  });
-  MATS.forEach(function (m, i) {
-    var b = document.createElement("button"); b.textContent = m[0]; if (!i) b.className = "on";
-    b.onclick = function () { pickMat(i, b); };
-    $("mats").appendChild(b);
-  });
-
-  function toast(t) { var e = $("toast"); e.textContent = t; e.className = "on"; clearTimeout(toast.t); toast.t = setTimeout(function () { e.className = ""; }, 1800); }
-
-  $("add").onclick = function () {
-    if (qty % 5) { qty = Math.ceil(qty / 5) * 5; $("qty").textContent = qty; lotNote(true); }
-    var cn = COLORS[curColor][0];
-    var f = cart.filter(function (l) { return l.size === size && l.color === cn; })[0];
-    if (f) f.qty += qty; else cart.push({ size: size, color: cn, qty: qty });
-    save(); render(); toast("👕 " + qty + " t-shirt " + COLORS[curColor][0].toLowerCase() + " (" + size + ") ajouté");
-    qty = 1; $("qty").textContent = 1;
-  };
-
-  function mini(color) {
-    var c = (COLORS.filter(function (x) { return x[0] === color; })[0] || COLORS[0])[1];
-    return '<span style="position:relative;isolation:isolate;width:54px;height:54px;flex:none;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:block"><img src="photos/tshirt.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><i style="position:absolute;inset:0;background:' + c + ';mix-blend-mode:multiply"></i></span>';
-  }
-  function render() {
-    var n = 0, t = 0; cart.forEach(function (l) { n += l.qty; t += l.qty * PRICE; });
-    var disc = promoOn ? t * PROMO_RATE : 0;
-    $("count").textContent = n; $("total").textContent = eur(t - disc);
-    $("discRow").style.display = promoOn && n ? "flex" : "none";
-    $("discCode").textContent = "(" + PROMO + " −20 %)"; $("discAmt").textContent = "−" + eur(disc);
-    if (promoOn) { $("promoMsg").className = "promo-msg ok"; $("promoMsg").textContent = "✅ Code appliqué : −20 %"; $("promoIn").value = PROMO; }
-    $("pay").disabled = !n; $("pay").style.opacity = n ? 1 : .4;
-    $("items").innerHTML = cart.length ? "" : '<div class="empty">Panier vide.<br>Il manque un t-shirt blanc.</div>';
-    cart.forEach(function (l, i) {
-      var d = document.createElement("div"); d.className = "line";
-      d.innerHTML = mini(l.color) + '<div><b>T-shirt blanc</b><br><small>' + (l.color || 'Blanc') + ' · Taille ' + l.size + ' · ' + l.qty + ' × ' + eur(PRICE) + '</small></div><button>Retirer</button>';
-      d.querySelector("button").onclick = function () { cart.splice(i, 1); save(); render(); };
-      $("items").appendChild(d);
+  // Liens : sur mobile, tente d'ouvrir directement l'appli, sinon retombe sur le site
+  document.querySelectorAll("a.glass[data-ios]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      if (!mobile) return;                       // ordinateur : lien normal (nouvel onglet)
+      var web = a.href, deep = isAndroid ? a.getAttribute("data-android") : a.getAttribute("data-ios");
+      if (!deep) return;
+      e.preventDefault();
+      var left = false;
+      function onHide() { if (document.hidden) left = true; }
+      document.addEventListener("visibilitychange", onHide);
+      location.href = deep;                      // tentative d'ouverture de l'appli
+      setTimeout(function () {
+        document.removeEventListener("visibilitychange", onHide);
+        if (!left && !document.hidden) location.href = web;   // l'appli ne s'est pas ouverte : on va sur le site
+      }, 1400);
     });
-  }
-  function drawer(on) { $("drawer").className = on ? "on" : ""; $("shade").className = on ? "on" : ""; }
-  $("openCart").onclick = function () { drawer(true); };
-  $("closeCart").onclick = $("shade").onclick = function () { drawer(false); };
-  $("pay").onclick = function () {
-    drawer(false); $("end").className = "on";
-    try { window.open($("subLink").href, "_blank", "noopener"); } catch (e) {}
-  };
-  $("endBtn").onclick = function () { cart = []; save(); render(); $("end").className = ""; };
-
-  $("promoBtn").onclick = function () {
-    var v = $("promoIn").value.trim().toLowerCase(), m = $("promoMsg");
-    if (v === PROMO) { promoOn = true; save(); render(); toast("🎉 Code promo −20 % appliqué"); }
-    else { promoOn = false; save(); render(); m.className = "promo-msg ko"; m.textContent = v ? "Code invalide." : "Entre un code promo."; }
-  };
-  $("promoIn").addEventListener("keydown", function (e) { if (e.key === "Enter") $("promoBtn").click(); });
-
-  load(); render();
+  });
+})();
 </script>
 </body>
 </html>
