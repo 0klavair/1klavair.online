@@ -275,6 +275,9 @@
     var discordTarget = "https://discord.gg/EcnyapHZYk";
     var twitchTarget = "https://www.twitch.tv/1klavair";
     var tiktokTarget = "https://www.tiktok.com/@1klavair";
+    function tiktokSafetyRelay(target) {
+      return "https://www.tiktoklinksafety.eu/link/v2?aid=1233&lang=fr&scene=bio_url&target=" + encodeURIComponent(target);
+    }
     var probes = [
       {
         label: "TikTok · route native external_link_redirect_popup",
@@ -291,6 +294,22 @@
       {
         label: "YouTube · schéma direct",
         href: "youtube://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1"
+      },
+      {
+        label: "TikTok relais officiel → YouTube (puis toucher Ouvrir)",
+        href: tiktokSafetyRelay("youtube://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1")
+      },
+      {
+        label: "TikTok relais officiel → Safari → YouTube",
+        href: tiktokSafetyRelay("x-safari-https://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1")
+      },
+      {
+        label: "TikTok relais officiel → Chrome → YouTube",
+        href: tiktokSafetyRelay("googlechromes://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1")
+      },
+      {
+        label: "TikTok relais officiel → App Store Discord",
+        href: tiktokSafetyRelay("itms-apps://apps.apple.com/app/id985746746")
       },
       {
         label: "Instagram extbrowser → Discord",
