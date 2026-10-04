@@ -323,6 +323,51 @@
   }
 
   if (/[?&]debug/.test(location.search)) {
+    var youtubeTarget = "https://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1";
+    var probes = [
+      {
+        label: "TikTok · route native external_link_redirect_popup",
+        href: "aweme://roma_redirect/?spark_page=external_link_redirect_popup&url=" + encodeURIComponent(youtubeTarget)
+      },
+      {
+        label: "Instagram · route native extbrowser",
+        href: "instagram://extbrowser/?url=" + encodeURIComponent(youtubeTarget)
+      },
+      {
+        label: "iOS · x-safari-https",
+        href: "x-safari-https://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1"
+      },
+      {
+        label: "YouTube · schéma direct",
+        href: "youtube://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1"
+      }
+    ];
+    var probeBox = document.createElement("section");
+    probeBox.style.cssText = "position:relative;z-index:98;margin:14px auto 110px;max-width:680px;padding:14px;border:2px solid #ffd400;border-radius:18px;background:#101010;color:#fff;font:600 14px/1.35 system-ui";
+    var probeTitle = document.createElement("b");
+    probeTitle.textContent = "Tests de sortie TikTok / Instagram (reverse engineering)";
+    probeBox.appendChild(probeTitle);
+    probes.forEach(function (probe) {
+      var link = document.createElement("a");
+      link.href = probe.href;
+      link.textContent = probe.label;
+      link.style.cssText = "display:block;margin-top:10px;padding:13px;border-radius:12px;background:#ffd400;color:#111;text-decoration:none";
+      link.addEventListener("click", function () {
+        var left = false;
+        function onVisibility() {
+          if (document.hidden) left = true;
+        }
+        document.addEventListener("visibilitychange", onVisibility);
+        link.textContent = probe.label + " · test en cours…";
+        setTimeout(function () {
+          document.removeEventListener("visibilitychange", onVisibility);
+          link.textContent = probe.label + (left ? " · APP QUITTÉE ✓" : " · BLOQUÉ ✕");
+        }, 1800);
+      });
+      probeBox.appendChild(link);
+    });
+    document.querySelector("main").appendChild(probeBox);
+
     var dbg = document.createElement("pre");
     dbg.style.cssText = "position:fixed;left:6px;right:6px;bottom:6px;z-index:99;margin:0;padding:8px;background:#000c;color:#0f0;font:11px/1.3 monospace;white-space:pre-wrap;word-break:break-all;border-radius:8px";
     dbg.textContent = "UA: " + ua + " | iOS=" + isIOS + " Android=" + isAndroid + " inApp=" + inApp;
