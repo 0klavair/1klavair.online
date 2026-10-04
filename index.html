@@ -140,29 +140,10 @@
   a.glass:hover .go { transform:translateX(3px); color:#fff; }
   .about { text-align:left; color:rgba(255,255,255,.78); line-height:1.55; font-weight:500; font-size:15px; margin:0; padding:0 4px; }
   .about a { color:#fff; text-decoration:underline; text-decoration-color:rgba(255,255,255,.35); text-underline-offset:3px; }
-  .inapp { position:relative; max-width:560px; margin:0 auto 14px; padding:14px 16px; border-radius:22px; text-align:left; font-size:14px; line-height:1.4; font-weight:500;
-    background:linear-gradient(135deg,rgba(255,212,0,.28),rgba(255,212,0,.10)); border:1px solid rgba(255,212,0,.5); color:#fff;
-    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); box-shadow:0 14px 34px rgba(0,0,0,.35); }
-  .inapp[hidden], .inapp small[hidden] { display:none; }
-  .inapp button { margin:10px 8px 0 0; padding:9px 14px; border:0; border-radius:12px; font:inherit; font-weight:700; font-size:13px; color:#111; background:#ffd400; cursor:pointer; }
-  .inapp a.inbtn { display:inline-block; margin:10px 8px 0 0; padding:9px 14px; border-radius:12px; font-weight:700; font-size:13px; color:#111; background:#ffd400; text-decoration:none; }
-  .inapp a.inbtn.plain { background:rgba(255,255,255,.2); color:#fff; }
-  .inapp [hidden] { display:none !important; }
-  .inapp b#inappNote { display:block; margin-bottom:4px; }
-  .inapp button#inappCopy { background:rgba(255,255,255,.85); }
-  .inapp small { display:block; margin-top:10px; opacity:.9; font-size:13px; }
   footer { margin-top:46px; color:var(--mut); font-size:12px; font-weight:500; }
 </style>
 </head>
 <body>
-<div class="inapp" id="inapp" hidden>
-  <b id="inappNote">Tu es dans le navigateur de TikTok.</b>
-  <span>Pour ouvrir YouTube, Twitch, Discord ou Instagram directement dans leur appli, ouvre cette page dans Safari.</span>
-  <a class="inbtn" id="inappBtn" href="#">Ouvrir dans Safari</a>
-  <button id="inappCopy" type="button">Copier le lien</button>
-  <a class="inbtn plain" id="inappWeb" href="#" hidden>Ouvrir le lien ici quand même</a>
-  <small id="inappHelp" hidden>À la main : appuie sur les <b>3 points (⋯)</b> en haut ou en bas à droite, puis <b>« Ouvrir dans le navigateur »</b>. Ensuite, touche le lien voulu : l'appli s'ouvre.</small>
-</div>
 <main>
   <span class="salut">salut</span>
   <div class="stage" id="stage" role="img" aria-label="1klavair">
@@ -254,76 +235,22 @@
   var isAndroid = /Android/i.test(ua), isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   var inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok|musical_ly|BytedanceWebview|ByteDance|Snapchat|LinkedInApp|Line\//i.test(ua);
   var cards = [].slice.call(document.querySelectorAll("a.glass[data-id]"));
-  var bar = document.getElementById("inapp");
-  function $(id) { return document.getElementById(id); }
 
-  // --- Feuille d'aide (instructions manuelles, 100 % fiable) ---
-  function showHelp(note) {
-    if (!bar) return;
-    bar.hidden = false; $("inappHelp").hidden = false;
-    if (note) $("inappNote").textContent = note;
-    bar.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  // --- Dans TikTok / Instagram... ---
-  if (inApp && bar) {
-    bar.hidden = false;
-    var base = location.protocol + "//" + location.host + location.pathname;
-    function escapeHref(id) {
-      var path = location.pathname + "?go=" + encodeURIComponent(id);
-      if (isIOS) return "x-safari-https://" + location.host + path;
-      return "intent://" + location.host + path + "#Intent;scheme=https;action=android.intent.action.VIEW;end";
-    }
-    $("inappBtn").setAttribute("href", escapeHref("home"));
-    $("inappBtn").onclick = function () { setTimeout(function () { showHelp(); }, 1300); };
-    $("inappCopy").onclick = function () {
-      var b = this;
-      (navigator.clipboard ? navigator.clipboard.writeText(base) : Promise.reject()).then(function () { b.textContent = "Lien copié ✓"; }, function () { showHelp(); });
-    };
-    // chaque carte devient un lien « échappée » : un vrai tap sur un vrai lien (pas de JS qui redirige)
-    cards.forEach(function (a) {
-      var id = a.getAttribute("data-id");
-      a.setAttribute("data-web", a.href);
-      a.setAttribute("href", escapeHref(id));
-      a.removeAttribute("target");
-      a.addEventListener("click", function () {
-        var left = false; function h() { if (document.hidden) left = true; }
-        document.addEventListener("visibilitychange", h);
-        setTimeout(function () {
-          document.removeEventListener("visibilitychange", h);
-          if (!left) {
-            $("inappWeb").setAttribute("href", a.getAttribute("data-web"));
-            $("inappWeb").hidden = false;
-            showHelp("L'ouverture automatique est bloquée par l'appli. Fais-le à la main :");
-          }
-        }, 1300);
-      });
-    });
-  }
-
-  // --- Dans le vrai navigateur : on ne touche à rien, iOS/Android ouvrent l'appli tout seuls ---
-  // Arrivée depuis l'échappée (?go=youtube) : gros bouton à toucher (un vrai tap ouvre l'appli)
-  var m = location.search.match(/[?&]go=([a-z0-9_-]+)/i);
-  if (m && !inApp) {
-    history.replaceState(null, "", location.pathname);
-    var t = cards.filter(function (c) { return c.getAttribute("data-id") === m[1]; })[0];
-    if (t) {
-      var ov = document.createElement("div");
-      ov.style.cssText = "position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.72);padding:20px";
-      var label = (t.querySelector(".txt b") || {}).textContent || "l'appli";
-      var go = document.createElement("a");
-      go.href = t.href; go.textContent = "Ouvrir " + label + " →";
-      go.style.cssText = "display:block;padding:22px 30px;border-radius:24px;background:#ffd400;color:#111;font:800 20px/1.2 inherit;text-decoration:none;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.5)";
-      var close = document.createElement("button");
-      close.textContent = "Fermer"; close.style.cssText = "display:block;margin:14px auto 0;background:none;border:0;color:#fff;font:600 15px inherit;opacity:.8";
-      close.onclick = function () { ov.remove(); };
-      var box = document.createElement("div"); box.appendChild(go); box.appendChild(close); ov.appendChild(box);
-      document.body.appendChild(ov);
+  // Test confirmé sur l'iPhone 11 : Instagram autorise youtube:// depuis son navigateur intégré.
+  // TikTok le bloque ; on lui laisse donc les liens HTTPS normaux, sans bannière ni fausse promesse.
+  if (isIOS && /Instagram|FB_IAB/i.test(ua)) {
+    var youtubeCard = cards.filter(function (c) { return c.getAttribute("data-id") === "youtube"; })[0];
+    if (youtubeCard) {
+      youtubeCard.href = youtubeCard.getAttribute("data-ios");
+      youtubeCard.removeAttribute("target");
     }
   }
 
   if (/[?&]debug/.test(location.search)) {
     var youtubeTarget = "https://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1";
+    var discordTarget = "https://discord.gg/EcnyapHZYk";
+    var twitchTarget = "https://www.twitch.tv/1klavair";
+    var tiktokTarget = "https://www.tiktok.com/@1klavair";
     var probes = [
       {
         label: "TikTok · route native external_link_redirect_popup",
@@ -340,13 +267,45 @@
       {
         label: "YouTube · schéma direct",
         href: "youtube://www.youtube.com/channel/UCTmru5WbzSltOHaArudiNDQ?sub_confirmation=1"
+      },
+      {
+        label: "Instagram extbrowser → Discord",
+        href: "instagram://extbrowser/?url=" + encodeURIComponent(discordTarget)
+      },
+      {
+        label: "Discord · schéma direct",
+        href: "discord://-/invite/EcnyapHZYk"
+      },
+      {
+        label: "Instagram extbrowser → Twitch",
+        href: "instagram://extbrowser/?url=" + encodeURIComponent(twitchTarget)
+      },
+      {
+        label: "Twitch · schéma direct",
+        href: "twitch://stream/1klavair"
+      },
+      {
+        label: "Instagram extbrowser → TikTok",
+        href: "instagram://extbrowser/?url=" + encodeURIComponent(tiktokTarget)
+      },
+      {
+        label: "TikTok · schéma enregistré (accueil)",
+        href: "tiktok://"
+      },
+      {
+        label: "Instagram · profil direct",
+        href: "instagram://user?username=1klavair"
       }
     ];
     var probeBox = document.createElement("section");
     probeBox.style.cssText = "position:relative;z-index:98;margin:14px auto 110px;max-width:680px;padding:14px;border:2px solid #ffd400;border-radius:18px;background:#101010;color:#fff;font:600 14px/1.35 system-ui";
     var probeTitle = document.createElement("b");
-    probeTitle.textContent = "Tests de sortie TikTok / Instagram (reverse engineering)";
+    probeTitle.textContent = "Tests Instagram : navigateur externe et schémas directs";
     probeBox.appendChild(probeTitle);
+    var probeNote = document.createElement("p");
+    probeNote.textContent = "À tester depuis Instagram. Un schéma direct ne peut fonctionner que si l'application correspondante est installée.";
+    probeNote.style.cssText = "margin:7px 0 0;color:#ddd;font-weight:500";
+    probeBox.appendChild(probeNote);
     probes.forEach(function (probe) {
       var link = document.createElement("a");
       link.href = probe.href;
