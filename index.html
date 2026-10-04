@@ -252,14 +252,21 @@
   var inApp = /Instagram|FBAN|FBAV|FB_IAB|TikTok|musical_ly|BytedanceWebview|ByteDance|Snapchat|LinkedInApp|Line\//i.test(ua);
   var cards = [].slice.call(document.querySelectorAll("a.glass[data-id]"));
 
-  // Test confirmé sur l'iPhone 11 : Instagram autorise youtube:// depuis son navigateur intégré.
-  // TikTok le bloque ; on lui laisse donc les liens HTTPS normaux, sans bannière ni fausse promesse.
+  // Tests confirmés sur l'iPhone 11 : Instagram autorise youtube:// et sa route extbrowser.
+  // TikTok bloque tous les probes actuels ; on lui laisse les liens HTTPS normaux.
   if (isIOS && /Instagram|FB_IAB/i.test(ua)) {
     var youtubeCard = cards.filter(function (c) { return c.getAttribute("data-id") === "youtube"; })[0];
     if (youtubeCard) {
       youtubeCard.href = youtubeCard.getAttribute("data-ios");
       youtubeCard.removeAttribute("target");
     }
+    ["discord", "twitch"].forEach(function (id) {
+      var card = cards.filter(function (c) { return c.getAttribute("data-id") === id; })[0];
+      if (card) {
+        card.href = "instagram://extbrowser/?url=" + encodeURIComponent(card.href);
+        card.removeAttribute("target");
+      }
+    });
   }
 
   var debugProbes = document.getElementById("debugProbes");
