@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /labo/
 
 Sitemap: https://1klavair.online/sitemap.xml

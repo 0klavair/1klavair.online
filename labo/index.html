@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Labo — 1klavair</title>
+<style>
+  @font-face { font-family:"Aeonik"; src:url("../fonts/Aeonik-Regular.woff2") format("woff2"); font-weight:300 600; font-display:swap; }
+  @font-face { font-family:"Aeonik"; src:url("../fonts/Aeonik-Bold.woff2") format("woff2"); font-weight:700 900; font-display:swap; }
+  :root { --bg:#0b0b0e; --fg:#f3f3f5; --mut:#a2a2ad; --line:rgba(255,255,255,.16); --acc:#ffd400; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 "Aeonik",system-ui,sans-serif; padding:max(18px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left)); }
+  main { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:18px; }
+  a { color:var(--acc); }
+  h1 { margin:6px 0 0; font-size:28px; letter-spacing:-.02em; }
+  h2 { margin:10px 0 0; font-size:13px; text-transform:uppercase; letter-spacing:.12em; color:var(--mut); }
+  .back { color:var(--mut); text-decoration:none; font-size:14px; }
+  .card { border:1px solid var(--line); border-radius:20px; background:rgba(255,255,255,.04); padding:14px; }
+  model-viewer { width:100%; height:min(62vh,520px); background:radial-gradient(circle at 50% 30%,#23232c,#0b0b0e 75%); border-radius:14px; --poster-color:transparent; }
+  .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+  .tabs button, .ar { font:inherit; font-weight:700; border:1px solid var(--line); background:transparent; color:var(--fg); padding:10px 14px; border-radius:12px; cursor:pointer; }
+  .tabs button[aria-pressed="true"] { background:var(--acc); color:#111; border-color:var(--acc); }
+  .ar { background:var(--acc); color:#111; border-color:var(--acc); width:100%; margin-top:10px; padding:13px; }
+  .dim { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; text-align:center; }
+  .dim div { border:1px solid var(--line); border-radius:12px; padding:8px 4px; }
+  .dim b { display:block; font-size:20px; }
+  .dim span { color:var(--mut); font-size:12px; }
+  ul { margin:6px 0 0; padding-left:20px; color:var(--mut); }
+  li { margin:4px 0; }
+  small, .note { color:var(--mut); font-size:13px; }
+</style>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← 1klavair.online</a>
+  <h1>Labo</h1>
+  <p class="note">Page de test non listée. Pour l'instant : le Mixo (prototype v15), modèles 3D tirés de la CAO.</p>
+
+  <h2>Mixo v15 · maquette 3D</h2>
+  <div class="card">
+    <div class="tabs" role="group" aria-label="Vue">
+      <button type="button" data-v="exterieur" aria-pressed="true">Extérieur</button>
+      <button type="button" data-v="interieur" aria-pressed="false">Radiographie (intérieur)</button>
+    </div>
+    <model-viewer id="mv" src="mixo/mixo_v15_exterieur.glb" ios-src="mixo/mixo_v15_exterieur.usdz"
+      alt="Mixo v15, boîtier en galet carré avec verre bombé"
+      camera-controls touch-action="pan-y" auto-rotate shadow-intensity="1" exposure="1.1"
+      ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" ar-placement="floor"
+      interaction-prompt="auto"></model-viewer>
+    <button class="ar" type="button" id="arBtn">Poser le Mixo dans ma pièce, en taille réelle (AR)</button>
+    <div class="dim">
+      <div><b>66</b><span>mm largeur</span></div>
+      <div><b>66</b><span>mm profondeur</span></div>
+      <div><b>24</b><span>mm hauteur (bosse du dos + dôme)</span></div>
+    </div>
+    <p class="note">Sur iPhone (Safari) : le bouton ouvre « Quick Look », qui place le modèle à l'échelle 1:1 (le LiDAR cale la distance au sol). Sur Android : Scene Viewer. Sur ordinateur : tourne le modèle avec la souris.</p>
+  </div>
+
+  <h2>Fichiers</h2>
+  <div class="card">
+    <ul>
+      <li><a href="mixo/mixo_v15_exterieur.usdz">mixo_v15_exterieur.usdz</a> (iPhone / iPad, AR) · <a href="mixo/mixo_v15_exterieur.glb">.glb</a></li>
+      <li><a href="mixo/mixo_v15_interieur.usdz">mixo_v15_interieur.usdz</a> · <a href="mixo/mixo_v15_interieur.glb">.glb</a></li>
+    </ul>
+    <p class="note">Dimensions réelles de la CAO (mm). Le visage sur l'écran est une image d'illustration, pas le vrai logiciel.</p>
+  </div>
+</main>
+<script>
+(function () {
+  var mv = document.getElementById("mv");
+  var btns = document.querySelectorAll(".tabs button");
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var v = b.getAttribute("data-v");
+      btns.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      mv.setAttribute("src", "mixo/mixo_v15_" + v + ".glb");
+      mv.setAttribute("ios-src", "mixo/mixo_v15_" + v + ".usdz");
+    });
+  });
+  document.getElementById("arBtn").addEventListener("click", function () {
+    if (mv.canActivateAR) mv.activateAR();
+    else alert("L'AR n'est pas disponible sur cet appareil. Ouvre cette page dans Safari sur iPhone, ou Chrome sur Android.");
+  });
+})();
+</script>
+</body>
+</html>
